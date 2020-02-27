@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE theRoot SYSTEM "entityParameter.dtd">
+
+<theRoot id="aaa" account="www">
+    <first id="bb" account="www"></first>
+    <second id="cc" account="www">second</second>
+    <third id="www" account="www">third</third>
+</theRoot>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE library[
+<!ELEMENT library (book)*>
+<!ELEMENT book (bookTitle, author, price)+>
+<!ELEMENT bookTitle (#PCDATA)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+]>
+<library>
+    <book>
+        <bookTitle>The first book</bookTitle>
+        <author>Huynh Kim Tri</author>
+        <price>200</price>
+    </book>
+    <book>        
+        <bookTitle>The second book</bookTitle>
+        <author>Tri Huynh Kim</author>
+        <price>150</price>
+    </book>
+    <book>
+        <bookTitle>The third book</bookTitle>
+        <author>Kim Tri Huynh</author>
+        <price>50</price>
+    </book>
+</library>

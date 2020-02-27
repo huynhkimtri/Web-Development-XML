@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library[
+<!ELEMENT library (book)+>
+<!ELEMENT book (booktitle, author, (price|discount))>
+<!ELEMENT booktitle (#PCDATA)>
+<!ELEMENT author ANY>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT discount (#PCDATA)>
+<!ATTLIST discount gender (A|C|B) "A" >
+<!ELEMENT x (#PCDATA)>
+]>
+
+<library>
+    <book>
+        <booktitle>The first book</booktitle>
+        <author>
+            <x>The first author</x> 
+        </author>
+        <discount>aaa</discount>
+    </book>
+    <book>
+        <booktitle>The first book</booktitle>
+        <author>The first author</author>
+        <price>50000</price>
+    </book>
+    <book>
+        <booktitle>The first book</booktitle>
+        <author>The first author</author>
+        <price>50000</price>
+    </book>
+</library>

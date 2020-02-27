@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book id="123" saleof="50">
+        <bookTitle>The Firm</bookTitle>
+        <author>John Grisham</author>
+        <price>99</price>
+    </book>
+    <book id="618">
+        <bookTitle>
+            Conan
+            
+            
+            
+        </bookTitle>
+        <author>Ghaosa</author>
+        <price>101.1</price>
+    </book>
+    <book id="189">
+        <bookTitle>Doraemon</bookTitle>
+        <author>Fujiko</author>
+        <price>99.99</price>
+    </book>
+</library>

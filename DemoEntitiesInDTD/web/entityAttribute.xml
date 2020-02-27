@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document [
+<!ELEMENT document (graphics+)>
+<!ELEMENT graphics EMPTY>
+<!ATTLIST graphics image ENTITIES #REQUIRED alternative CDATA #IMPLIED>
+<!--<!ATTLIST graphics image ENTITY #REQUIRED alternative CDATA #IMPLIED>-->
+<!NOTATION png SYSTEM "abc/xyz/png">
+<!ENTITY logo SYSTEM "logo.png" NDATA png>
+<!ENTITY wwwc "Word Wide Web Corporation">
+]>
+
+
+<document>
+    <graphics image="logo" alternative=""></graphics>
+</document>

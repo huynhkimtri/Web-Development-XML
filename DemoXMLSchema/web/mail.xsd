@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://xml.netbeans.org/schema/mail"
+           targetNamespace="http://xml.netbeans.org/schema/mail"
+           elementFormDefault="qualified">
+    <xs:element name="mail">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="to" type="xs:String"/>
+                <xs:element name="from" type="xs:String"/>
+                <xs:element name="header" type="xs:String"/>
+                <xs:element name="body" type="xs:String"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

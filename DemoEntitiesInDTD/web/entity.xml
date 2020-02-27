@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Addresses [
+<!ELEMENT Addresses (Center)*>
+<!ELEMENT Center (Name, Address, Phone)>
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT Address EMPTY>
+<!ATTLIST Address id CDATA #REQUIRED>
+<!ELEMENT Phone (#PCDATA)>
+<!ENTITY HCM "This is Hochiminh City">
+<!ENTITY HN "This is Hanoi Capital">
+<!ENTITY DN "This is Danang City">
+]>
+
+<Addresses>
+    <Center>
+        <Name>FUHCM</Name>
+        <Address id="&DN;"></Address>
+        <Phone>123</Phone>
+    </Center>
+</Addresses>

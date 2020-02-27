@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <!--<booktitle first="first&quot;" second="second">This is a book title</booktitle>-->
+        <!--<booktitle>if (a>b) System.out.'''''print("a")</booktitle>-->
+        <author>This an author</author>
+        <price>price of book</price>
+    </book>
+</library>

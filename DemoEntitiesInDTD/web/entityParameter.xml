@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<purchaseOrder>
+    <item id="123" account="qwe">
+        <price>21</price>
+        <quantity>3</quantity>
+    </item>
+    <item account="asd">
+        <price>21</price>
+        <quantity>3</quantity>
+    </item>
+    <manufacturer account="ASD">Academic</manufacturer>
+    <purchaser id="123" account="qwe">ZXC</purchaser>
+    <purchaseInfo>
+        <cash>123</cash>
+    </purchaseInfo>
+</purchaseOrder>

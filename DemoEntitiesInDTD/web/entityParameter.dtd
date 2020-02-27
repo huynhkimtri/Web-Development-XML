@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/entityParameter.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE purchaseOrder SYSTEM "entityParameter.dtd">
+
+    <purchaseOrder>
+    ...
+    </purchaseOrder>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT purchaseOrder (item|manufacturer|purchaser|purchaseInfo)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT item (price|quantity)*>
+<!ATTLIST item
+    id CDATA #IMPLIED
+    account CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT price (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT quantity (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT manufacturer (#PCDATA)>
+<!ATTLIST manufacturer
+    account CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT purchaser (#PCDATA)>
+<!ATTLIST purchaser
+    id CDATA #IMPLIED
+    account CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT purchaseInfo (cash)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT cash (#PCDATA)>
