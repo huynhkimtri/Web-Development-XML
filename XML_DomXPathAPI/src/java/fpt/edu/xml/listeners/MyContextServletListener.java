@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 /**
  * Web application lifecycle listener.
  *
- * @author huynh
+ * @author huynhkimtri
  */
 public class MyContextServletListener implements ServletContextListener {
 

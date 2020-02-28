@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/helpers/XMLHelpers.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/createNewAccount.html</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/ProcessServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/login.html</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/DeleteServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/listeners/MyContextServletListener.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/UpdateServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/InsertServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/dtos/StudentDTO.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/invalid.html</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/WEB-INF/studentAccounts.xml</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/LoginServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/src/java/fpt/edu/xml/servlets/SearchAddressServlet.java</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/search.jsp</file>
+            <file>file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/XML_DomXPathAPI/web/WEB-INF/web.xml</file>
+        </group>
     </open-files>
 </project-private>

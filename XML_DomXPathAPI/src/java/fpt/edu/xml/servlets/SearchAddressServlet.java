@@ -20,17 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
  *
- * @author huynh
+ * @author huynhkimtri
  */
 @WebServlet(name = "SearchAddressServlet", urlPatterns = {"/SearchAddressServlet"})
 public class SearchAddressServlet extends HttpServlet {

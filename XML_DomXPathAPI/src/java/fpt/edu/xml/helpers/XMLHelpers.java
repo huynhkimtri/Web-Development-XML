@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author huynh
+ * @author huynhkimtri
  */
 public class XMLHelpers implements Serializable {
 

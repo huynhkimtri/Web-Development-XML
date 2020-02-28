@@ -9,28 +9,29 @@ import fpt.edu.xml.helpers.XMLHelpers;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author huynhkimtri
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "UpdateServlet", urlPatterns = {"/UpdateServlet"})
+public class UpdateServlet extends HttpServlet {
 
-    private final String SEARCH_PAGE = "search.jsp";
-    private final String INVALID_PAGE = "invalid.html";
+    private final String XML_FILE = "WEB-INF/studentAccounts.xml";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,51 +44,40 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String path = INVALID_PAGE;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            ServletContext context = this.getServletContext();
-            Document doc = (Document) context.getAttribute("DOM_TREE");
+            response.setContentType("text/html;charset=UTF-8");
+            String id = request.getParameter("id");
+            String status = request.getParameter("status");
+            String className = request.getParameter("classname");
+            String lastSearchValue = request.getParameter("lastSearchValue");
+
+            String realPath = getServletContext().getRealPath("/");
+            String filePath = realPath + XML_FILE;
+
+            Document doc = XMLHelpers.parseDOMFromFile(filePath);
             if (doc != null) {
-                // xpath expression
-                String expression
-                        = "//student[@id='"
-                        + username
-                        + "' and normalize-space(password)='"
-                        + password
-                        + "' and normalize-space(status)!='dropout']";
-                // create xpath object
-                XPath xp = XMLHelpers.getXPath();
-                // execute xpath
-                boolean result = (boolean) xp.evaluate(expression, doc, XPathConstants.BOOLEAN);
-                if (result) {
-                    path = SEARCH_PAGE;
-                    HttpSession session = request.getSession();
-                    String fullName = "";
+                XPath xpath = XMLHelpers.getXPath();
+                String expression = "//student[@id='" + id + "']";
+                Node student = (Node) xpath.evaluate(expression, doc, XPathConstants.NODE);
+                if (student != null) {
+                    NamedNodeMap attrs = student.getAttributes();
+                    attrs.getNamedItem("class").setNodeValue(className);
+                    String expStatus = "//student[@id='" + id + "']/status";
+                    Node s = (Node) xpath.evaluate(expStatus, doc, XPathConstants.NODE);
+                    if (s != null) {
+                        s.setTextContent(status);
+                    }
 
-                    expression = "//student[@id='" + username + "']/lastname";
-                    String temp = (String) xp.evaluate(expression, doc, XPathConstants.STRING);
-                    fullName = temp.trim();
-                    expression = "//student[@id='" + username + "']/middlename";
-                    temp = (String) xp.evaluate(expression, doc, XPathConstants.STRING);
-                    fullName = fullName + " " + temp.trim();
-                    expression = "//student[@id='" + username + "']/firstname";
-                    temp = (String) xp.evaluate(expression, doc, XPathConstants.STRING);
-                    fullName = fullName + " " + temp.trim();
+                    XMLHelpers.transformDOMtoFile(doc, filePath);
 
-                    session.setAttribute("FULLNAME", fullName);
-                } else {
-                    path = INVALID_PAGE;
+                    String urlRedirect = "ProcessServlet?action=search&searchValue=" + lastSearchValue;
+                    response.sendRedirect(urlRedirect);
                 }
             }
-        } catch (XPathExpressionException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request, response);
+        } catch (ParserConfigurationException | SAXException | XPathExpressionException | TransformerException ex) {
+            Logger.getLogger(UpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

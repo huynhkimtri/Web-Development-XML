@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author huynh
+ * @author huynhkimtri
  */
 public class StudentDTO implements Serializable {
 

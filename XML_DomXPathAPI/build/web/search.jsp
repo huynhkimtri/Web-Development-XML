@@ -43,11 +43,11 @@
                                     <td>${counter.count}</td>
                                     <td>${std.id}<input type="hidden" name="id" value="${std.id}"/></td>
                                     <td>${std.lastname}&nbsp;${std.middlename}&nbsp;${std.firstname}</td>
-                                    <td><input type="text" value="${std.classname}" name="txtClassName"/></td>
+                                    <td><input type="text" value="${std.classname}" name="classname"/></td>
                                     <td>${std.address}</td>
                                     <td><c:if test="${std.sex == true}">Male</c:if>
                                         <c:if test="${std.sex != true}">Female</c:if></td>
-                                    <td><input type="text" value="${std.status}" name="txtStatus"/></td>
+                                    <td><input type="text" value="${std.status}" name="status"/></td>
                                     <td>
                                         <c:url var="deleteUrl" value="ProcessServlet">
                                             <c:param name="action" value="delete"/>
