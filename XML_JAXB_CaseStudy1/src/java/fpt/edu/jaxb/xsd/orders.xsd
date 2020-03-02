@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           targetNamespace="http://xml.netbeans.org/schema/orders"
+           xmlns="http://xml.netbeans.org/schema/orders"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:element name="orders">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="order" type="order" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="order">
+        <xs:sequence>
+            <xs:element name="orderId" type="xs:string"/>
+            <xs:element name="orderDate" type="xs:string"/>
+            <xs:element name="userId" type="xs:string"/>
+            <xs:element name="isDeliver" type="xs:boolean"/>
+            <xs:any minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

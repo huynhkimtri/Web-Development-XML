@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accounts xmlns="http://xml.netbeans.org/schema/orders">
+    <account>
+        <username>huynhkimtri</username>
+        <password>123123123</password>
+        <fullname>Huynh Kim Tri</fullname>
+        <isAdmin>true</isAdmin>
+        <orders>
+            <order>
+                <orderId>OR001</orderId>
+                <orderDate>10/10/2020</orderDate>
+                <userId>trihk</userId>
+                <isDeliver>false</isDeliver>
+                <orderDetails>
+                    <orderDetail>
+                        <id>00001</id>
+                        <productId>P009</productId>
+                        <quantity>30</quantity>
+                        <price>23.4</price>
+                        <orderId>OR001</orderId>
+                    </orderDetail>
+                    <orderDetail>
+                        <id>00002</id>
+                        <productId>P009</productId>
+                        <quantity>500</quantity>
+                        <price>2.5</price>
+                        <orderId>OR001</orderId>
+                    </orderDetail>
+                    <orderDetail>
+                        <id>00003</id>
+                        <productId>P009</productId>
+                        <quantity>18</quantity>
+                        <price>88.2</price>
+                        <orderId>OR001</orderId>
+                    </orderDetail>
+                </orderDetails>
+            </order>
+        </orders>
+    </account>
+</accounts>

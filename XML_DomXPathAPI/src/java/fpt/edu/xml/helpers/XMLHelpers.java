@@ -7,10 +7,17 @@ package fpt.edu.xml.helpers;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -26,6 +33,7 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  *
@@ -91,4 +99,55 @@ public class XMLHelpers implements Serializable {
         transformer.transform(src, result);
     }
 
+    /**
+     *
+     * @param xmlFilePath
+     * @param handler
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
+    public static void parseFileToSAX(String xmlFilePath, DefaultHandler handler) throws IOException, ParserConfigurationException, SAXException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser sax = factory.newSAXParser();
+        sax.parse(xmlFilePath, handler);
+    }
+
+    /**
+     *
+     * @param stream
+     * @return
+     * @throws XMLStreamException
+     */
+    public static XMLStreamReader parseFileUsingStAXCusor(InputStream stream) throws XMLStreamException {
+        XMLInputFactory factory = XMLInputFactory.newFactory();
+        XMLStreamReader reader = factory.createXMLStreamReader(stream);
+        return reader;
+    }
+
+    public static String getTextElementOfCursor(String elementName, XMLStreamReader reader) throws XMLStreamException {
+        if (reader == null) {
+            return null;
+        }
+        if (elementName == null) {
+            return null;
+        }
+        if (elementName.trim().isEmpty()) {
+            return null;
+        }
+        while (reader.hasNext()) {
+            int currentCursor = reader.getEventType();
+            if (currentCursor == XMLStreamConstants.START_ELEMENT) {
+                String tagName = reader.getLocalName();
+                if (elementName.equals(tagName)) { // we locate start element
+                    reader.next(); // locate text of element
+                    String result = reader.getText(); // get value
+                    reader.nextTag(); // jump to end element
+                    return result;
+                } // end if reader matches element name
+            } // end if cursor point to start element
+            reader.next();
+        } // end if cursor does not point to null
+        return null;
+    }
 }
