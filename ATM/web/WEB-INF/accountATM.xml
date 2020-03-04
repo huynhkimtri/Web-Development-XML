@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers xmlns:account="abc.vn">
+    <account:allowed username="thinhdd" balance="230">
+        <fullname>Thinh DD</fullname>
+        <address>123 Cho Quan</address>
+        <pin>0987</pin>
+        <class>D</class>
+        <transactions>
+            <transaction>
+                <id>2391311</id>
+                <date>2013/09/23</date>
+                <amount>50</amount>
+                <type>1</type>
+            </transaction>
+            <transaction>
+                <id>2391312</id>
+                <date>2013/09/23</date>
+                <amount>200</amount>
+                <type>1</type>
+            </transaction>
+            <transaction>
+                <id>2391301</id>
+                <date>2013/09/25</date>
+                <amount>20</amount>
+                <type>0</type>
+            </transaction>
+            <transaction>
+                <id>2391302</id>
+                <date>2013/09/26</date>
+                <amount>100</amount>
+                <type>1</type>
+            </transaction>
+        </transactions>
+    </account:allowed>
+    <account:expired username="vudaica" balance="2300">
+        <fullname>Vu Dai Ca</fullname>
+        <address>123 Cau Bang Ky</address>
+        <pin>1234</pin>
+        <class>A</class>
+        <transactions>
+            <transaction>
+                <id>123123</id>
+                <date>2018/08/12</date>
+                <amount>150</amount>
+                <type>1</type>
+            </transaction>
+        </transactions>
+    </account:expired>
+    <account:allowed username="khanhkieu" balance="230">
+        <fullname>Khanh Kieu</fullname>
+        <address>123 Duong A</address>
+        <pin>4321</pin>
+        <class>D</class>
+        <transactions>
+            <transaction>
+                <id>246776543</id>
+                <date>2018/08/12</date>
+                <amount>250</amount>
+                <type>1</type>
+            </transaction>
+            <transaction>
+                <id>6543234</id>
+                <date>2018/08/13</date>
+                <amount>350</amount>
+                <type>2</type>
+            </transaction>
+            <transaction>
+                <id>4247654321</id>
+                <date>2018/08/14</date>
+                <amount>450</amount>
+                <type>3</type>
+            </transaction>
+        </transactions>
+    </account:allowed>
+</customers>

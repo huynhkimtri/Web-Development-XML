@@ -1,36 +1,35 @@
-package fpt.edu.xml.servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import fpt.edu.xml.helpers.StudentHandler;
-import fpt.edu.xml.helpers.XMLHelpers;
+package dev.controllers;
+
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  *
  * @author huynh
  */
-@WebServlet(urlPatterns = {"/LoginSAXServlet"})
-public class LoginSAXServlet extends HttpServlet {
+public class MainController extends HttpServlet {
 
-    private final String SEARCH_PAGE = "search.jsp";
-    private final String INVALID_PAGE = "invalid.html";
-    private final String XML_FILE = "WEB-INF/studentAccounts.xml";
+    private final String LOGIN_ACTION = "login";
+    private final String SEARCH_ACTION = "search";
+    private final String DELETE_ACTION = "delete";
+    private final String UPDATE_ACTION = "update";
+    private final String INSERT_ACTION = "insert";
+//    private final String LOGIN_SERVLET = "DOM_LoginServlet";
+//    private final String LOGIN_SERVLET = "SAX_LoginServlet";
+    private final String LOGIN_SERVLET = "StAX_LoginServlet";
+    private final String SEARCH_SERVLET = "StAX_SearchServlet";
+    private final String DELETE_SERVLET = "StAX_DeleteServlet";
+    private final String UPDATE_SERVLET = "StAX_UpdateServlet";
+    private final String INSERT_SERVLET = "StAX_InsertServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,29 +43,34 @@ public class LoginSAXServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = INVALID_PAGE;
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
+        String path = "";
         try {
-            ServletContext context = this.getServletContext();
-            String realPath = context.getRealPath("/");
-            String xmlFilePath = realPath + XML_FILE;
-
-            StudentHandler handler = new StudentHandler(username, password);
-            XMLHelpers.parseFileToSAX(xmlFilePath, handler);
-
-            if (handler.isFound()) {
-                url = SEARCH_PAGE;
-                HttpSession session = request.getSession();
-                session.setAttribute("FULLNAME", handler.getFullName());
-                session.setAttribute("USERNAME", username);
+            String action = request.getParameter("action");
+            if (action == null) {
+                // do nothing
+            } else {
+                switch (action) {
+                    case LOGIN_ACTION:
+                        path = LOGIN_SERVLET;
+                        break;
+                    case SEARCH_ACTION:
+                        path = SEARCH_SERVLET;
+                        break;
+                    case DELETE_ACTION:
+                        path = DELETE_SERVLET;
+                        break;
+                    case UPDATE_ACTION:
+                        path = UPDATE_SERVLET;
+                        break;
+                    case INSERT_ACTION:
+                        path = INSERT_SERVLET;
+                        break;
+                    default:
+                        break;
+                }
             }
-
-        } catch (ParserConfigurationException | SAXException ex) {
-            Logger.getLogger(LoginSAXServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
             dispatcher.forward(request, response);
         }
     }

@@ -1,12 +1,12 @@
-package fpt.edu.xml.servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import fpt.edu.xml.helpers.StudentHandler;
-import fpt.edu.xml.helpers.XMLHelpers;
+package dev.servlets;
+
+import dev.utils.MyConstants;
+import dev.utils.XMLUtils;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,19 +18,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import org.w3c.dom.Document;
 
 /**
  *
  * @author huynh
  */
-@WebServlet(urlPatterns = {"/LoginSAXServlet"})
-public class LoginSAXServlet extends HttpServlet {
-
-    private final String SEARCH_PAGE = "search.jsp";
-    private final String INVALID_PAGE = "invalid.html";
-    private final String XML_FILE = "WEB-INF/studentAccounts.xml";
+@WebServlet(name = "DOM_LoginServlet", urlPatterns = {"/DOM_LoginServlet"})
+public class DOM_LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,27 +42,40 @@ public class LoginSAXServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = INVALID_PAGE;
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        String url = MyConstants.INVALID_PAGE;
         try {
             ServletContext context = this.getServletContext();
-            String realPath = context.getRealPath("/");
-            String xmlFilePath = realPath + XML_FILE;
-
-            StudentHandler handler = new StudentHandler(username, password);
-            XMLHelpers.parseFileToSAX(xmlFilePath, handler);
-
-            if (handler.isFound()) {
-                url = SEARCH_PAGE;
-                HttpSession session = request.getSession();
-                session.setAttribute("FULLNAME", handler.getFullName());
-                session.setAttribute("USERNAME", username);
+            Document doc = (Document) context.getAttribute("DOM_TREE");
+            if (doc != null) {
+                // xpath expression
+                String exp = "//student[@id='"
+                        + username
+                        + "' and normalize-space(password)='"
+                        + password
+                        + "' and normalize-space(status)!='dropout']";
+                // create xpath object
+                XPath xp = XMLUtils.getXPath();
+                // execute xpath
+                boolean result = (boolean) xp.evaluate(exp, doc, XPathConstants.BOOLEAN);
+                if (result) {
+                    url = MyConstants.SEARCH_PAGE;
+                    exp = "//student[@id='" + username + "']/lastname";
+                    String lastName = (String) xp.evaluate(exp, doc, XPathConstants.STRING);
+                    exp = "//student[@id='" + username + "']/middlename";
+                    String middleName = (String) xp.evaluate(exp, doc, XPathConstants.STRING);
+                    exp = "//student[@id='" + username + "']/firstname";
+                    String firstName = (String) xp.evaluate(exp, doc, XPathConstants.STRING);
+                    String fullName = lastName + " " + middleName + " " + firstName;
+                    HttpSession session = request.getSession();
+                    session.setAttribute("FULL_NAME", fullName);
+                } else {
+                    url = MyConstants.INVALID_PAGE;
+                }
             }
-
-        } catch (ParserConfigurationException | SAXException ex) {
-            Logger.getLogger(LoginSAXServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XPathExpressionException ex) {
+            Logger.getLogger(DOM_LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
