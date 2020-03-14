@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<persons>
+    <person link="http://kieutrongkhanh.net">
+        <name>
+            <fristname>
+                Khanh
+            </fristname>
+            <lastname>
+                Kieu
+            </lastname>
+        </name>
+    </person>
+    <person link="http://huynhkimtri.net">
+        <name>
+            <fristname>
+                HuynhKim
+            </fristname>
+            <lastname>
+                Tri.net
+            </lastname>
+        </name>
+    </person>
+    <person link="http://trihuynh.com.vn">
+        <name>
+            <fristname>
+                Tri
+            </fristname>
+            <lastname>
+                Huynh
+            </lastname>
+        </name>
+    </person>
+    <person link="http://trihuynh-developer.net">
+        <name>
+            <fristname>
+                TriHuynh
+            </fristname>
+            <lastname>
+                developer
+            </lastname>
+        </name>
+    </person>
+</persons>

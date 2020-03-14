@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<books>
+    <bookBean>
+        <name>The first book</name>
+        <author>The author for this book</author>
+        <price>25000</price>
+    </bookBean>
+    <bookBean>
+        <name>The second book</name>
+        <author>The author for this book</author>
+        <price>12000</price>
+    </bookBean>
+    <bookBean>
+        <name>The third book</name>
+        <author>The author for this book</author>
+        <price>32000</price>
+    </bookBean>
+    <bookBean>
+        <name>The fouth book</name>
+        <author>The author for this book</author>
+        <price>41000</price>
+    </bookBean>
+</books>

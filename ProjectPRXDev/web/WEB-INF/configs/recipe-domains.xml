@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<recipeDomains xmlns="http://www.project-xml.com/XMLSchema/dev">
+    
+    <recipeDomain origin="http://www.amthuc365.vn">
+        
+        <paths link="/cong-thuc">
+            <path id="RE01" link="/105-thanh-phan/">Tất cả thành phần</path>
+            <path id="RE02" link="/72-mybunmien/">Mỳ/Bún/Miến</path>
+            <path id="RE03" link="/106-thit-bo">Thịt bò</path>
+            <path id="RE04" link="/186-thit-bo/">Thịt bê</path>
+            <path id="RE05" link="/107-thit-cuu/">Thịt cừu</path>
+            <path id="RE06" link="/91-loai-mon/">Thịt lợn</path>
+            <path id="RE07" link="/109-thit-ga/">Thịt gà</path>
+            <path id="RE08" link="/110-thit-vit/">Thịt vịt</path>
+            <path id="RE09" link="/111-thit-ngan/">Thịt ngan</path>
+            <path id="RE10" link="/112-hai-san/">Hải sản</path>
+            <path id="RE11" link="/185-tom/">Tôm</path>
+            <path id="RE12" link="/113-ca/">Cá</path>
+            <path id="RE13" link="/114-gaocom/">Gạo/cơm</path>
+            <path id="RE14" link="/116-pasta/">Pasta</path>
+            <path id="RE15" link="/117-banh-my/">Bánh mỳ</path>
+            <path id="RE16" link="/118-rau/">Rau</path>
+            <path id="RE17" link="/119-hoa-qua/">Hoa quả</path>
+            <path id="RE18" link="/120-dau-phu/">Đậu phụ</path>
+            <path id="RE19" link="/121-nam/">Nấm</path>
+            <path id="RE20" link="/122-phomai/">Phô-mai</path>
+            <path id="RE21" link="/123-sua/">Sữa</path>
+            <path id="RE22" link="/124-trung/">Trứng</path>
+            <path id="RE23" link="/125-chocolate/">Chocolate</path>
+            <path id="RE24" link="/126-thanh-phan-khac/">Thành phần khác</path>
+        </paths>
+        <overviewStylesheet>WEB-INF/stylesheets/recipe-overview.xsl</overviewStylesheet>
+        <detailStylesheet>WEB-INF/stylesheets/recipe-detail.xsl</detailStylesheet>
+        
+    </recipeDomain>
+    
+</recipeDomains>

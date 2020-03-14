@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <items>
+        <code>A001</code>
+        <name>CocaCola</name>
+        <price>2 USD</price>
+        <description>A drink</description>
+    </items>
+    <items>
+        <code>A002</code>
+        <name>Pepsi</name>
+        <price>2 USD</price>
+        <description>Another drink</description>
+    </items>
+    <items>
+        <code>A003</code>
+        <name>Mirinda Soda</name>
+        <price>2 USD</price>
+        <description>Sweet drink</description>
+    </items>
+    <items>
+        <code>A004</code>
+        <name>7Up</name>
+        <price>2 USD</price>
+        <description>A drink</description>
+    </items>
+    <items>
+        <code>A005</code>
+        <name>Cheese</name>
+        <price>10 USD</price>
+        <description>Best cheese</description>
+    </items>
+    <items>
+        <code>A006</code>
+        <name>Highland Coffee</name>
+        <price>15 USD</price>
+        <description>The best coffee in the world</description>
+    </items>
+</products>
