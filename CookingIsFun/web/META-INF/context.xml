@@ -1,2 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context path="/CookingIsFun"/>
+<?xml version="1.0" encoding="UTF-8" ?>
+<Context path="/CookingIsFun">
+    <Resource name="CookingIsFun_DataSource" type="javax.sql.DataSource" auth="Container" 
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+              url="jdbc:sqlserver://localhost:1433;databaseName=CookingIsFun" 
+              username="sa" password="123123123" />
+</Context>
