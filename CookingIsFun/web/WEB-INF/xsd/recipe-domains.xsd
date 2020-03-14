@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<xs:schema version="1.0" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.cookingisfun.com/XMLSchema/dev" 
+           xmlns="http://www.cookingisfun.com/XMLSchema/dev" elementFormDefault="qualified">
+
+    <xs:element name="recipeDomains">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="recipeDomain" type="recipeDomain" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="recipeDomain">
+        <xs:sequence>
+            <xs:element name="paths" type="paths" maxOccurs="1"></xs:element>
+            <xs:element name="parsers" type="parsers" maxOccurs="1"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="origin" type="xs:string"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="paths">
+        <xs:sequence>
+            <xs:element name="path" type="path" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="link" type="xs:string"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="path">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:string"></xs:attribute>
+                <xs:attribute name="link" type="xs:string"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="parsers">
+        <xs:sequence>
+            <xs:element name="overview" type="parser"></xs:element>
+            <xs:element name="detail" type="parser"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="parser">
+        <xs:sequence>
+            <xs:element name="beginParseSign" type="xs:string"></xs:element>
+            <xs:element name="endParseSign" type="xs:string"></xs:element>
+            <xs:element name="stylesheet" type="xs:string"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

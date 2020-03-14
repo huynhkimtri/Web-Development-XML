@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.project-xml.com/XMLSchema/dev" targetNamespace="http://www.project-xml.com/XMLSchema/dev" elementFormDefault="qualified">
+
+    <xs:element name="ingredients" type="listOfIngredients"></xs:element>
+
+    <xs:complexType name="listOfIngredients">
+        <xs:sequence>
+            <xs:element name="ingredient" type="ingredientItem" maxOccurs="unbounded"></xs:element>
+            <xs:element name="nextpage" type="xs:string" minOccurs="0"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ingredientItem">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="name" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="link" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="price" type="xs:int" minOccurs="0"></xs:element>
+            <xs:element name="description" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="image" type="xs:string" minOccurs="0"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
