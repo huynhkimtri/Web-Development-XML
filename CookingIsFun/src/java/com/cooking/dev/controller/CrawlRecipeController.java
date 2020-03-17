@@ -5,27 +5,25 @@
  */
 package com.cooking.dev.controller;
 
+import com.cooking.dev.jaxb.Domain;
+import com.cooking.dev.jaxb.Path;
+import com.cooking.dev.jaxb.Recipe;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author huynh
  */
-public class FrontController extends HttpServlet {
-
-    static final Logger logger = Logger.getLogger(FrontController.class);
-
-//    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String INDEX_PAGE = "views/index.jsp";
-    private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String CRAWL_RECIPE_CONTROLLER = "CrawlRecipeController";
-    private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
+@WebServlet(name = "CrawlRecipeController", urlPatterns = {"/CrawlRecipeController"})
+public class CrawlRecipeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,35 +36,14 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
-
-        String path = INDEX_PAGE;
-
-        try {
-            String action = request.getParameter("action");
-            if (action != null) {
-                switch (action) {
-                    case "admin":
-                        path = ADMIN_CONTROLLER;
-                        break;
-                    case "crawlRecipe":
-                        path = CRAWL_RECIPE_CONTROLLER;
-                        break;
-                    case "crawlIngredient":
-                        path = CRAWL_INGREDIENT_CONTROLLER;
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                // do nothing
-            }
-        } finally {
-            logger.info("Dispatching to " + path);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request, response);
-        }
+        String page = request.getParameter("domain");
+        String path = request.getParameter("path");
+        int categoryId = Integer.parseInt(path);
+        HttpSession session = request.getSession();
+        Domain domain = (Domain) session.getAttribute("RECIPE_DOMAINS");
+        List<Path> listOfPaths = domain.getPaths().getPath();
+        List<Recipe> listOfRecipes = new ArrayList<>();
 
     }
 

@@ -5,33 +5,25 @@
     <xsl:output method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
-        <recipes xmlns="http://www.cookingisfun.com/XMLSchema/dev">
-
-            <xsl:for-each select="//div[@class='it-new_bottom clearfix ']/div[@class='row']">
-                
-                <xsl:variable name="body" select="./div[@class='it-body_bottom col-md-8 col-sm-8']"/>
-                <xsl:variable name="image" select="./div[@class='it-img_bottom col-md-4 col-sm-4']"/>
-                
-                <recipe>
-                    <xsl:variable name="link" select="$body/h3/a/@href" />
-                    <id>
-                        <xsl:value-of select="substring-before(substring-after($link, '/cong-thuc/'),'-')"/>
-                    </id>
+        <ingredients xmlns="http://www.cookingisfun.com/XMLSchema/dev">
+            
+            <xsl:for-each select="//div[@class='col-xs-6 col-sm-6 col-md-3']/div[@class='product-items']">
+                <xsl:variable name="image" select="./div[@class='img-top']"/>
+                <xsl:variable name="body" select="./div[@class='info-body']"/>
+                <ingredient>
                     <link>
-                        <xsl:value-of select="$link"/>
+                        <xsl:value-of select="body/h3/a/@href"/>
                     </link>
                     <image>
-                        <xsl:value-of select="$image/a/image/@src"/>
+                        <xsl:value-of select="$image/a/img/@src"/>
                     </image>
-                </recipe>
-                
+                </ingredient>
             </xsl:for-each>
-            
             <nextpage>
-                <xsl:value-of select="//a[@class='next']/@href"/>
+                <xsl:value-of select="//a[@class='page-node']//span"/>
             </nextpage>
             
-        </recipes>
+        </ingredients>
     </xsl:template>
 
 </xsl:stylesheet>

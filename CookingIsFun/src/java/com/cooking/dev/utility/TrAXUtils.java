@@ -36,12 +36,12 @@ public class TrAXUtils {
         transformer.transform(xml, result);
     }
 
-    public static InputStream transformXML(InputStream stream, String xslUrl)
+    public static InputStream transformXML(InputStream stream, String xslDoc)
             throws TransformerConfigurationException, TransformerException, UnsupportedEncodingException {
         StringWriter writer = new StringWriter();
         StreamResult streamResult = new StreamResult(writer);
         TransformerFactory transformFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformFactory.newTransformer(new StreamSource(new File(xslUrl)));
+        Transformer transformer = transformFactory.newTransformer(new StreamSource(new File(xslDoc)));
         transformer.transform(new StreamSource(stream), streamResult);
         return new ByteArrayInputStream(writer.toString().getBytes(StandardCharsets.UTF_8));
     }

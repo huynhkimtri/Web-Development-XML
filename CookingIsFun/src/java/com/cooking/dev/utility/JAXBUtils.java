@@ -58,7 +58,7 @@ public class JAXBUtils {
      * @param stream
      * @return java class
      */
-    public static <T> T unmarshallInputStream(T t, InputStream stream) {
+    public static <T> T unmarshalJavaObject(InputStream stream, T t) {
         T result = null;
         try {
             JAXBContext context = JAXBContext.newInstance(t.getClass());

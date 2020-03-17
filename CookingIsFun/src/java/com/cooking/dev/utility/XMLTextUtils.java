@@ -5,6 +5,9 @@
  */
 package com.cooking.dev.utility;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,15 +22,14 @@ public class XMLTextUtils {
      * @param src
      * @return
      */
-    public static String refineHTMLToXML(String src) {
+    public static InputStream refineHTMLToXML(String src) {
         src = getBody(src);
         src = removeMiscellaneousTags(src);
-
         XMLSyntaxChecker checker = new XMLSyntaxChecker();
         src = checker.makeWellformedXMLFromHTML(src);
         src = getBody(src);
         System.out.println(src);
-        return src;
+        return new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8));
     }
 
     /**

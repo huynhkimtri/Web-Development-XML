@@ -1,43 +1,41 @@
 <?xml version="1.0"?>
 
 <xs:schema version="1.0" 
-           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-           xmlns="http://www.cookingisfun.com/XMLSchema/dev" 
-           targetNamespace="http://www.cookingisfun.com/XMLSchema/dev" 
-           elementFormDefault="qualified">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns="http://www.cookingisfun.com/XMLSchema/dev" targetNamespace="http://www.cookingisfun.com/XMLSchema/dev" elementFormDefault="qualified">
 
-    <xs:element name="recipes" type="listOfRecipes"></xs:element>
+    <xs:element name="recipes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="recipe" type="recipe" maxOccurs="unbounded"></xs:element>
+                <xs:element name="nextPage" type="xs:string" minOccurs="0"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="listOfRecipes">
-        <xs:sequence>
-            <xs:element name="recipe" type="recipeItem" maxOccurs="unbounded"></xs:element>
-            <xs:element name="next" type="xs:string" minOccurs="0"></xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="recipeItem">
+    <xs:complexType name="recipe">
         <xs:sequence>
             <xs:element name="name" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="link" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="image" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="categories" type="categories" minOccurs="0"></xs:element>
+            <xs:element name="listCategories" type="listCategories" minOccurs="0"></xs:element>
             <xs:element name="description" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="servings" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="prepTime" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="cookTime" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="ingredients" type="ingredients" minOccurs="0"></xs:element>
-            <xs:element name="intructions" type="instructions" minOccurs="0"></xs:element>
+            <xs:element name="listIngredients" type="listIngredients" minOccurs="0"></xs:element>
+            <xs:element name="listIntructions" type="listIntructions" minOccurs="0"></xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:positiveInteger"></xs:attribute>
     </xs:complexType>
 
-    <xs:complexType name="categories">
+    <xs:complexType name="listCategories">
         <xs:sequence>
-            <xs:element name="category" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="category" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded"></xs:element>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="ingredients">
+    <xs:complexType name="listIngredients">
         <xs:sequence>
             <xs:element name="ingredient" type="ingredientItem" minOccurs="0" maxOccurs="unbounded"></xs:element>
         </xs:sequence>
@@ -51,7 +49,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="instructions">
+    <xs:complexType name="listIntructions">
         <xs:sequence>
             <xs:element name="instruction" type="instructionItem" minOccurs="0" maxOccurs="unbounded"></xs:element>
         </xs:sequence>
