@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.utility;
+package com.cooking.dev.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ public class XMLTextUtils {
         XMLSyntaxChecker checker = new XMLSyntaxChecker();
         src = checker.makeWellformedXMLFromHTML(src);
         src = getBody(src);
-        System.out.println(src);
+//        System.out.println(src);
         return new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8));
     }
 

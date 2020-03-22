@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<tomcat-users>
+    <role rolename="manager"/>
+    <role rolename="admin"/>
+    <role rolename="tomcat"/>
+    <role rolename="role1"/>
+    <user username="tomcat" password="tomcat" roles="tomcat"/>
+    <user username="both" password="tomcat" roles="tomcat,role1"/>
+    <user username="role1" password="tomcat" roles="role1"/>
+    <user username="ide" password="yAeHnGV3" roles="manager,admin"/>
+</tomcat-users>

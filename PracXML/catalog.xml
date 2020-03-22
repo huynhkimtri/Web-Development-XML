@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/E:/FPT_UNIVERSITY/2020Spring/PRX301/XML_REPO/PracXML/web/newXmlSchema1.xsd" uri="src/conf/xml-resources/jaxb/a/newXmlSchema1.xsd"/>
+</catalog>

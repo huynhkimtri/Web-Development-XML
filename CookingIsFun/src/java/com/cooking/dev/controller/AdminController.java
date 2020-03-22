@@ -5,12 +5,11 @@
  */
 package com.cooking.dev.controller;
 
-import com.cooking.dev.dao.Dao;
-import com.cooking.dev.dao.impl.RecipeCategoryDaoImpl;
+import com.cooking.dev.dao.impl.CategoryDao;
 import com.cooking.dev.jaxb.Domain;
 import com.cooking.dev.jaxb.Domains;
 import com.cooking.dev.jaxb.Path;
-import com.cooking.dev.utility.JAXBUtils;
+import com.cooking.dev.util.JAXBUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -59,11 +57,9 @@ public class AdminController extends HttpServlet {
             Domain recipeDomain = listOfDomains.get(0);
             Domain ingredientDomain = listOfDomains.get(1);
 
-            Dao dao = new RecipeCategoryDaoImpl();
+            CategoryDao dao = new CategoryDao();
             List<Path> listOfPaths = recipeDomain.getPaths().getPath();
-            listOfPaths.forEach((item) -> {
-                dao.save(item);
-            });
+            dao.save(listOfPaths);
 
             HttpSession session = request.getSession();
             session.setAttribute("RECIPE_DOMAINS", recipeDomain);

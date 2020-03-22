@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<customer  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+           xmlns='http://xml.netbeans.org/schema/customers'
+           xsi:schemaLocation='http://xml.netbeans.org/schema/customers newXmlSchema.xsd'>
+    <customerID>12345</customerID>
+    <name>KhanhKT</name>
+    <address>123 ABC Street</address>
+    <city>HCM</city>
+    <phone>1234</phone>
+</customer>

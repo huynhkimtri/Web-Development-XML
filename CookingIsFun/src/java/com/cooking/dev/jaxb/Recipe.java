@@ -1,19 +1,21 @@
-
 package com.cooking.dev.jaxb;
 
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for recipe complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for recipe complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ *
  * <pre>
  * &lt;complexType name="recipe">
  *   &lt;complexContent>
@@ -35,8 +37,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "recipe", propOrder = {
@@ -51,29 +53,28 @@ import javax.xml.bind.annotation.XmlType;
     "listIngredients",
     "listIntructions"
 })
+@XmlRootElement(name = "recipe")
 public class Recipe {
 
+    @XmlAttribute(name = "id")
+    @XmlSchemaType(name = "positiveInteger")
+    protected BigInteger id;
     protected String name;
     protected String link;
     protected String image;
     protected ListCategories listCategories;
     protected String description;
-    protected String servings;
-    protected String prepTime;
-    protected String cookTime;
+    protected BigInteger servings;
+    protected BigInteger prepTime;
+    protected BigInteger cookTime;
     protected ListIngredients listIngredients;
     protected ListIntructions listIntructions;
-    @XmlAttribute(name = "id")
-    @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger id;
 
     /**
      * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getName() {
         return name;
@@ -81,11 +82,9 @@ public class Recipe {
 
     /**
      * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -93,11 +92,9 @@ public class Recipe {
 
     /**
      * Gets the value of the link property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getLink() {
         return link;
@@ -105,11 +102,9 @@ public class Recipe {
 
     /**
      * Sets the value of the link property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setLink(String value) {
         this.link = value;
@@ -117,11 +112,9 @@ public class Recipe {
 
     /**
      * Gets the value of the image property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getImage() {
         return image;
@@ -129,11 +122,9 @@ public class Recipe {
 
     /**
      * Sets the value of the image property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setImage(String value) {
         this.image = value;
@@ -141,11 +132,9 @@ public class Recipe {
 
     /**
      * Gets the value of the listCategories property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListCategories }
-     *     
+     *
+     * @return possible object is {@link ListCategories }
+     *
      */
     public ListCategories getListCategories() {
         return listCategories;
@@ -153,11 +142,9 @@ public class Recipe {
 
     /**
      * Sets the value of the listCategories property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListCategories }
-     *     
+     *
+     * @param value allowed object is {@link ListCategories }
+     *
      */
     public void setListCategories(ListCategories value) {
         this.listCategories = value;
@@ -165,11 +152,9 @@ public class Recipe {
 
     /**
      * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getDescription() {
         return description;
@@ -177,11 +162,9 @@ public class Recipe {
 
     /**
      * Sets the value of the description property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -189,83 +172,69 @@ public class Recipe {
 
     /**
      * Gets the value of the servings property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link BigInteger }
+     *
      */
-    public String getServings() {
+    public BigInteger getServings() {
         return servings;
     }
 
     /**
      * Sets the value of the servings property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link BigInteger }
+     *
      */
-    public void setServings(String value) {
+    public void setServings(BigInteger value) {
         this.servings = value;
     }
 
     /**
      * Gets the value of the prepTime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link BigInteger }
+     *
      */
-    public String getPrepTime() {
+    public BigInteger getPrepTime() {
         return prepTime;
     }
 
     /**
      * Sets the value of the prepTime property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link BigInteger }
+     *
      */
-    public void setPrepTime(String value) {
+    public void setPrepTime(BigInteger value) {
         this.prepTime = value;
     }
 
     /**
      * Gets the value of the cookTime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link BigInteger }
+     *
      */
-    public String getCookTime() {
+    public BigInteger getCookTime() {
         return cookTime;
     }
 
     /**
      * Sets the value of the cookTime property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link BigInteger }
+     *
      */
-    public void setCookTime(String value) {
+    public void setCookTime(BigInteger value) {
         this.cookTime = value;
     }
 
     /**
      * Gets the value of the listIngredients property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListIngredients }
-     *     
+     *
+     * @return possible object is {@link ListIngredients }
+     *
      */
     public ListIngredients getListIngredients() {
         return listIngredients;
@@ -273,11 +242,9 @@ public class Recipe {
 
     /**
      * Sets the value of the listIngredients property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListIngredients }
-     *     
+     *
+     * @param value allowed object is {@link ListIngredients }
+     *
      */
     public void setListIngredients(ListIngredients value) {
         this.listIngredients = value;
@@ -285,11 +252,9 @@ public class Recipe {
 
     /**
      * Gets the value of the listIntructions property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ListIntructions }
-     *     
+     *
+     * @return possible object is {@link ListIntructions }
+     *
      */
     public ListIntructions getListIntructions() {
         return listIntructions;
@@ -297,11 +262,9 @@ public class Recipe {
 
     /**
      * Sets the value of the listIntructions property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ListIntructions }
-     *     
+     *
+     * @param value allowed object is {@link ListIntructions }
+     *
      */
     public void setListIntructions(ListIntructions value) {
         this.listIntructions = value;
@@ -309,11 +272,9 @@ public class Recipe {
 
     /**
      * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is {@link BigInteger }
+     *
      */
     public BigInteger getId() {
         return id;
@@ -321,14 +282,28 @@ public class Recipe {
 
     /**
      * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is {@link BigInteger }
+     *
      */
     public void setId(BigInteger value) {
         this.id = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe {\n"
+                + "\tid: " + id + ",\n"
+                + "\tname: " + name + ",\n"
+                + "\tlink: " + link + ",\n"
+                + "\timage: " + image + ",\n"
+                + "\tlistCategories: " + listCategories + ",\n"
+                + "\tdescription: " + description + ",\n"
+                + "\tservings: " + servings + ",\n"
+                + "\tprepTime: " + prepTime + ",\n"
+                + "\tcookTime: " + cookTime + ",\n"
+                + "\tlistIngredients: " + listIngredients + ",\n"
+                + "\tlistIntructions: " + listIntructions + "\n}";
     }
 
 }

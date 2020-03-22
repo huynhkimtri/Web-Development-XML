@@ -63,10 +63,11 @@ public class Recipes {
      * {@link Recipe }
      * 
      * 
+     * @return 
      */
     public List<Recipe> getRecipe() {
         if (recipe == null) {
-            recipe = new ArrayList<Recipe>();
+            recipe = new ArrayList<>();
         }
         return this.recipe;
     }

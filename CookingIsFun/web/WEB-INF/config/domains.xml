@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <domains xmlns="http://www.cookingisfun.com/XMLSchema/dev">
-
+    
     <domain origin="http://www.amthuc365.vn">
         <paths>
             <path id="1" link="/cong-thuc/105-thanh-phan/">Tất cả thành phần</path>

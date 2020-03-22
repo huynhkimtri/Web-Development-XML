@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 
 <xs:schema version="1.0" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns="http://www.cookingisfun.com/XMLSchema/dev" targetNamespace="http://www.cookingisfun.com/XMLSchema/dev" elementFormDefault="qualified">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.cookingisfun.com/XMLSchema/dev" 
+           targetNamespace="http://www.cookingisfun.com/XMLSchema/dev" 
+           elementFormDefault="qualified">
 
     <xs:element name="recipes">
         <xs:complexType>
@@ -20,9 +22,9 @@
             <xs:element name="image" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="listCategories" type="listCategories" minOccurs="0"></xs:element>
             <xs:element name="description" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="servings" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="prepTime" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="cookTime" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="servings" type="xs:positiveInteger" minOccurs="0"></xs:element>
+            <xs:element name="prepTime" type="xs:positiveInteger" minOccurs="0"></xs:element>
+            <xs:element name="cookTime" type="xs:positiveInteger" minOccurs="0"></xs:element>
             <xs:element name="listIngredients" type="listIngredients" minOccurs="0"></xs:element>
             <xs:element name="listIntructions" type="listIntructions" minOccurs="0"></xs:element>
         </xs:sequence>

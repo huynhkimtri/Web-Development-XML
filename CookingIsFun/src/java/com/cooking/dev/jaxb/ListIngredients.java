@@ -56,10 +56,11 @@ public class ListIngredients {
      * {@link IngredientItem }
      * 
      * 
+     * @return 
      */
     public List<IngredientItem> getIngredient() {
         if (ingredient == null) {
-            ingredient = new ArrayList<IngredientItem>();
+            ingredient = new ArrayList<>();
         }
         return this.ingredient;
     }

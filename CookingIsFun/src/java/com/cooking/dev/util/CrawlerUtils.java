@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.utility;
+package com.cooking.dev.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -35,13 +37,21 @@ import org.xml.sax.SAXParseException;
  */
 public class CrawlerUtils {
 
+    /**
+     * Crawl string data from link
+     *
+     * @param link
+     * @return
+     * @throws TransformerException
+     */
     public static String crawlDataFromLink(String link) throws TransformerException {
         String result = null;
         try {
             URL url = new URL(link);
-            URLConnection connection = url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(8 * 1000);
             connection.setConnectTimeout(8 * 1000);
+
             InputStream is = connection.getInputStream();
             result = getString(is);
         } catch (IOException ex) {

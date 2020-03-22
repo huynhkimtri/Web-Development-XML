@@ -23,9 +23,9 @@ public class MainController extends HttpServlet {
     private final String DELETE_ACTION = "delete";
     private final String UPDATE_ACTION = "update";
     private final String INSERT_ACTION = "insert";
-//    private final String LOGIN_SERVLET = "DOM_LoginServlet";
+    private final String LOGIN_SERVLET = "DOM_LoginServlet";
 //    private final String LOGIN_SERVLET = "SAX_LoginServlet";
-    private final String LOGIN_SERVLET = "StAX_LoginServlet";
+//    private final String LOGIN_SERVLET = "StAX_LoginServlet";
     private final String SEARCH_SERVLET = "StAX_SearchServlet";
     private final String DELETE_SERVLET = "StAX_DeleteServlet";
     private final String UPDATE_SERVLET = "StAX_UpdateServlet";

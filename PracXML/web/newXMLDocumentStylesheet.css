@@ -1,0 +1,6 @@
+/* Cascade style sheet based on newXMLDocument.dtd DTD */
+library { display: block }
+book { display: block }
+title { display: block }
+author { display: block }
+price { display: block }

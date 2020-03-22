@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<customers>
+    <customer password='khanhkieu'>
+        <username>KhanhKT</username>
+    </customer>
+    <customer password='123456'>
+        <username>Hatruc</username>
+    </customer>
+</customers>

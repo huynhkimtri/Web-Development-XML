@@ -6,31 +6,25 @@
 
     <xsl:template match="/">
         <recipes xmlns="http://www.cookingisfun.com/XMLSchema/dev">
-
-            <xsl:for-each select="//div[@class='it-new_bottom clearfix ']/div[@class='row']">
-                
-                <xsl:variable name="body" select="./div[@class='it-body_bottom col-md-8 col-sm-8']"/>
-                <xsl:variable name="image" select="./div[@class='it-img_bottom col-md-4 col-sm-4']"/>
-                
+            
+            <xsl:for-each select="//div[@class='it-body_bottom col-md-8 col-sm-8']">
                 <recipe>
-                    <xsl:variable name="link" select="$body/h3/a/@href" />
-                    <id>
-                        <xsl:value-of select="substring-before(substring-after($link, '/cong-thuc/'),'-')"/>
-                    </id>
+                    <xsl:variable name="href" select=".//h3/a/@href" />
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="substring-before(substring-after($href, '/cong-thuc/'),'-')"/>
+                    </xsl:attribute>
                     <link>
-                        <xsl:value-of select="$link"/>
+                        <xsl:value-of select="$href"/>
                     </link>
                     <image>
-                        <xsl:value-of select="$image/a/image/@src"/>
+                        <xsl:value-of select=".//preceding-sibling::div[@class='it-img_bottom col-md-4 col-sm-4']/a/image/@src"/>
                     </image>
                 </recipe>
-                
             </xsl:for-each>
             
-            <nextpage>
+            <nextPage>
                 <xsl:value-of select="//a[@class='next']/@href"/>
-            </nextpage>
-            
+            </nextPage>
         </recipes>
     </xsl:template>
 

@@ -50,11 +50,15 @@ public class DOM_LoginServlet extends HttpServlet {
             Document doc = (Document) context.getAttribute("DOM_TREE");
             if (doc != null) {
                 // xpath expression
+//                String exp = "//student[@id='"
+//                        + username
+//                        + "' and normalize-space(password)='"
+//                        + password
+//                        + "' and normalize-space(status)!='dropout']";
                 String exp = "//student[@id='"
                         + username
-                        + "' and normalize-space(password)='"
-                        + password
-                        + "' and normalize-space(status)!='dropout']";
+                        + "' and normalize-space(@password)='"
+                        + password + "']";
                 // create xpath object
                 XPath xp = XMLUtils.getXPath();
                 // execute xpath
@@ -76,7 +80,7 @@ public class DOM_LoginServlet extends HttpServlet {
             }
         } catch (XPathExpressionException ex) {
             Logger.getLogger(DOM_LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }  finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }

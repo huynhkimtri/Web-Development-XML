@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.utility;
+package com.cooking.dev.util;
 
 import com.sun.codemodel.JCodeModel;
 import com.sun.tools.xjc.api.SchemaCompiler;
@@ -59,11 +59,13 @@ public class JAXBUtils {
      * @return java class
      */
     public static <T> T unmarshalJavaObject(InputStream stream, T t) {
+        if (t == null) {
+            return t;
+        }
         T result = null;
         try {
             JAXBContext context = JAXBContext.newInstance(t.getClass());
             Unmarshaller unmarshaller = context.createUnmarshaller();
-
             result = (T) unmarshaller.unmarshal(stream);
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);

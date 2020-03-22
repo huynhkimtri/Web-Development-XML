@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.utility;
+package com.cooking.dev.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;

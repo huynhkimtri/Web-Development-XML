@@ -33,9 +33,9 @@
                 <xsl:value-of select="translate($cookTime, translate($cookTime, '0123456789', ''), '')"/>
             </cookTime>
             
-            <ingredients>
+            <listIngredients>
                 <xsl:for-each select="//ul[@class='menu-ingredients']/li">
-                    <ingredient>
+                    <ingredientItem>
                         <xsl:variable name="item" select="."/>
                         <xsl:variable name="quantity" select="translate($item, translate($item, '0123456789./-', ''), '')"/>
                         <xsl:variable name="name" select=".//a"/>
@@ -47,24 +47,24 @@
                             <xsl:value-of select="$unit"/>
                         </unit>
                         <quantity>
-                            <xsl:value-of select="quantity"/>
+                            <xsl:value-of select="$quantity"/>
                         </quantity>
-                    </ingredient>
+                    </ingredientItem>
                 </xsl:for-each>
-            </ingredients>
+            </listIngredients>
             
-            <intructions>
+            <listIntructions>
                 <xsl:for-each select="//ul[@class='menu-directions']/li">
-                    <instruction>
+                    <instructionItem>
                         <step>
                             <xsl:value-of select=".//div/span[@class='num-step']"/>
                         </step>
                         <detail>
                             <xsl:value-of select=".//div[@class='it-intro']"/>
                         </detail>
-                    </instruction>
+                    </instructionItem>
                 </xsl:for-each>
-            </intructions>
+            </listIntructions>
             
         </recipe>
     </xsl:template>

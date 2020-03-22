@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.utility;
+package com.cooking.dev.util;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import static com.cooking.dev.utility.XMLSyntaxState.*;
+import static com.cooking.dev.util.XMLSyntaxState.*;
 
 /**
  *

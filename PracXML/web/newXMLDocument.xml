@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE library[
+<!ELEMENT library (book)+>
+<!ELEMENT book (title+,author,(price|discount))>
+<!ELEMENT title (#PCDATA|discount)*>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT discount (#PCDATA)>
+<!ELEMENT price ANY>
+<!ELEMENT p ANY>
+<!ATTLIST title bool (aa|cc|ddd) "cc">
+]>
+
+<!--<!DOCTYPE library SYSTEM 'newXMLDocument.dtd'>-->
+<!--xmlns:a="http://a.com" xmlns:b="http://b.com"-->
+<library>
+    <book>  
+        <title bool="aa"><![CDATA[huyn>?>;;>&apos;hkim tri]]></title>
+        <author>t4ri</author>
+        <price></price>
+    </book>
+    <book>
+        <title>aaa<discount>asxcxc</discount>
+        </title>
+        <author>tri</author>
+        <price></price>
+    </book>
+    <book>
+        <title>huynhkimtri</title>
+        <author>tri</author>
+        <price></price>
+    </book>
+</library>
