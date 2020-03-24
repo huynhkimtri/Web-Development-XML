@@ -21,8 +21,8 @@
             <xs:element name="link" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="image" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="listCategories" type="listCategories" minOccurs="0"></xs:element>
-            <xs:element name="description" type="xs:string" minOccurs="0"></xs:element>
-            <xs:element name="servings" type="xs:positiveInteger" minOccurs="0"></xs:element>
+            <xs:element name="description" type="xs:string" minOccurs="0" default="Đang cập nhật..."></xs:element>
+            <xs:element name="servings" type="xs:string" minOccurs="0"></xs:element>
             <xs:element name="prepTime" type="xs:positiveInteger" minOccurs="0"></xs:element>
             <xs:element name="cookTime" type="xs:positiveInteger" minOccurs="0"></xs:element>
             <xs:element name="listIngredients" type="listIngredients" minOccurs="0"></xs:element>

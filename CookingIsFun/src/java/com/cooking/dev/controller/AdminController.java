@@ -5,13 +5,14 @@
  */
 package com.cooking.dev.controller;
 
-import com.cooking.dev.dao.impl.CategoryDao;
+import com.cooking.dev.dao.CategoryDAO;
 import com.cooking.dev.jaxb.Domain;
 import com.cooking.dev.jaxb.Domains;
 import com.cooking.dev.jaxb.Path;
 import com.cooking.dev.util.JAXBUtils;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -52,19 +53,21 @@ public class AdminController extends HttpServlet {
             FileInputStream fis = new FileInputStream(new File(contextPath + DOMAINS_FILE));
 
             Domains domains = new Domains();
-            domains = JAXBUtils.unmarshalJavaObject(fis, domains);
+            domains = JAXBUtils.unMarshal(fis, domains);
             List<Domain> listOfDomains = domains.getDomain();
             Domain recipeDomain = listOfDomains.get(0);
             Domain ingredientDomain = listOfDomains.get(1);
 
-            CategoryDao dao = new CategoryDao();
+            CategoryDAO dao = new CategoryDAO();
             List<Path> listOfPaths = recipeDomain.getPaths().getPath();
-            dao.save(listOfPaths);
+            boolean result = dao.save(listOfPaths);
+            if (result) {
+                HttpSession session = request.getSession();
+                session.setAttribute("RECIPE_DOMAINS", recipeDomain);
+                session.setAttribute("INGREDIENT_DOMAINS", ingredientDomain);
+            }
 
-            HttpSession session = request.getSession();
-            session.setAttribute("RECIPE_DOMAINS", recipeDomain);
-            session.setAttribute("INGREDIENT_DOMAINS", ingredientDomain);
-
+        } catch (FileNotFoundException ex) {
         } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(path);
             dispatcher.forward(request, response);

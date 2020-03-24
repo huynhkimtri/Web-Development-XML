@@ -56,10 +56,11 @@ public class ListIntructions {
      * {@link InstructionItem }
      * 
      * 
+     * @return 
      */
     public List<InstructionItem> getInstruction() {
         if (instruction == null) {
-            instruction = new ArrayList<InstructionItem>();
+            instruction = new ArrayList<>();
         }
         return this.instruction;
     }

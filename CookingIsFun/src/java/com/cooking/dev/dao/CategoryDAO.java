@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.dao.impl;
+package com.cooking.dev.dao;
 
 import com.cooking.dev.jaxb.Path;
 import com.cooking.dev.util.DBUtils;
@@ -20,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author huynh
  */
-public class CategoryDao implements Serializable {
+public class CategoryDAO implements Serializable {
 
     private static final String SQL_SAVE
             = "INSERT INTO [dbo].[tblCategory]([Id],[Name],[Link])\n"
@@ -36,6 +36,21 @@ public class CategoryDao implements Serializable {
             + "VALUES(?, ?)";
 
     /**
+     * Sets the designated parameter to the given Java value.
+     *
+     * @param ps The <code>PreparedStatement</code> object
+     * @param p The <code>Recipe</code> object
+     * @throws SQLException
+     */
+    private static void setDesignatedParams(PreparedStatement ps, Path p)
+            throws SQLException {
+        ps.setInt(1, p.getId().intValue());
+        ps.setInt(2, p.getId().intValue());
+        ps.setString(3, p.getValue());
+        ps.setString(4, p.getLink());
+    }
+
+    /**
      *
      * @param p
      * @return
@@ -43,14 +58,11 @@ public class CategoryDao implements Serializable {
     public boolean save(Path p) {
         try (Connection con = DBUtils.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement(SQL_SAVE_NOT_EXISTS)) {
-                ps.setInt(1, p.getId().intValue());
-                ps.setInt(2, p.getId().intValue());
-                ps.setString(3, p.getValue());
-                ps.setString(4, p.getLink());
+                setDesignatedParams(ps, p);
                 return ps.executeUpdate() > 0;
             }
         } catch (NamingException | SQLException ex) {
-            Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -66,10 +78,7 @@ public class CategoryDao implements Serializable {
             try (PreparedStatement ps = con.prepareStatement(SQL_SAVE_NOT_EXISTS)) {
                 con.setAutoCommit(false);
                 for (Path item : list) {
-                    ps.setInt(1, item.getId().intValue());
-                    ps.setInt(2, item.getId().intValue());
-                    ps.setString(3, item.getValue());
-                    ps.setString(4, item.getLink());
+                    setDesignatedParams(ps, item);
                     ps.addBatch();
                 }
                 results = ps.executeBatch().length;
@@ -77,7 +86,7 @@ public class CategoryDao implements Serializable {
             }
             return results > 0;
         } catch (NamingException | SQLException ex) {
-            Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -96,7 +105,7 @@ public class CategoryDao implements Serializable {
                 return ps.executeUpdate() > 0;
             }
         } catch (NamingException | SQLException ex) {
-            Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

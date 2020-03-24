@@ -27,8 +27,6 @@ public class XMLTextUtils {
         src = removeMiscellaneousTags(src);
         XMLSyntaxChecker checker = new XMLSyntaxChecker();
         src = checker.makeWellformedXMLFromHTML(src);
-        src = getBody(src);
-//        System.out.println(src);
         return new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -60,6 +58,9 @@ public class XMLTextUtils {
         String result = src;
 
         String exp = "<script.*?</script>";
+        result = result.replaceAll(exp, "");
+
+        exp = "<noscript.*?</noscript>";
         result = result.replaceAll(exp, "");
 
         exp = "<style.*?</style>";

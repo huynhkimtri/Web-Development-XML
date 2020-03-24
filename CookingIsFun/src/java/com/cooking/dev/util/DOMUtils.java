@@ -31,6 +31,12 @@ import org.xml.sax.SAXParseException;
  */
 public class DOMUtils {
 
+    /**
+     *
+     * @param is
+     * @param context
+     * @return
+     */
     public static boolean parseXML(InputStream is, ServletContext context) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -63,6 +69,55 @@ public class DOMUtils {
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 
             StreamResult result = new StreamResult(new File(context.getRealPath("/") + "parseStream.xml"));
+            DOMSource source = new DOMSource(doc);
+
+            transformer.transform(source, result);
+
+            System.out.println("Finished!");
+            return true;
+        } catch (ParserConfigurationException | SAXException | IOException | TransformerException ex) {
+            Logger.getLogger(DOMUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param is
+     * @return
+     */
+    public static boolean parseXML(InputStream is) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setValidating(false);
+            factory.setNamespaceAware(false);
+            DocumentBuilder builder;
+            builder = factory.newDocumentBuilder();
+            builder.setErrorHandler(new ErrorHandler() {
+                @Override
+                public void warning(SAXParseException exception) throws SAXException {
+                    System.out.println(exception.getMessage());
+                }
+
+                @Override
+                public void error(SAXParseException exception) throws SAXException {
+                    System.out.println(exception.getMessage());
+                }
+
+                @Override
+                public void fatalError(SAXParseException exception) throws SAXException {
+                    System.out.println(exception.getMessage());
+                }
+            });
+            Document doc
+                    = builder.parse(is);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+
+            StreamResult result = new StreamResult(new File("E:\\FPT_UNIVERSITY\\2020Spring\\PRX301\\XML_REPO\\parseStream.xml"));
             DOMSource source = new DOMSource(doc);
 
             transformer.transform(source, result);

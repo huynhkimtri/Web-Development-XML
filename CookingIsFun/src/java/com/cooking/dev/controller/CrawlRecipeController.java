@@ -7,7 +7,6 @@ package com.cooking.dev.controller;
 
 import com.cooking.dev.jaxb.Domain;
 import com.cooking.dev.jaxb.Path;
-import com.cooking.dev.jaxb.Recipe;
 import com.cooking.dev.service.RecipeService;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class CrawlRecipeController extends HttpServlet {
 
     private static final String ADMIN_PAGE = "views/admin.jsp";
+    private static final String RESULT_PAGE = "views/result.html";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +40,7 @@ public class CrawlRecipeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        String url = ADMIN_PAGE;
         HttpSession session = request.getSession();
         Domain domain = (Domain) session.getAttribute("RECIPE_DOMAINS");
         String origin = request.getParameter("origin");
@@ -49,19 +49,24 @@ public class CrawlRecipeController extends HttpServlet {
 
         RecipeService service = new RecipeService(request.getServletContext());
         List<Path> listOfPaths = domain.getPaths().getPath();
-        List<Recipe> listOfRecipe;
-        
+//        List<Recipe> listOfRecipe;
+
         if (listOfPaths != null) {
             int sizePaths = listOfPaths.size();
             String path;
             for (int i = 0; i < sizePaths; i++) {
                 path = listOfPaths.get(i).getLink();
-                listOfRecipe = service.crawlRecipesTest(domain, origin, path);
-                service.saveRecipes(listOfRecipe);
+                int cateId = listOfPaths.get(i).getId().intValue();
+                service.crawlRecipesTest(domain, origin, path, cateId);
             }
+//            for (int i = 0; i < sizePaths; i++) {
+//                path = listOfPaths.get(i).getLink();
+//                service.crawlRecipesTest(domain, origin, path);
+//            }
+            url = RESULT_PAGE;
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_PAGE);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 

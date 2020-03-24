@@ -5,7 +5,7 @@
         <paths>
             <path id="1" link="/cong-thuc/105-thanh-phan/">Tất cả thành phần</path>
             <path id="2" link="/cong-thuc/72-mybunmien/">Mỳ/Bún/Miến</path>
-            <path id="3" link="/cong-thuc/106-thit-bo">Thịt bò</path>
+            <path id="3" link="/cong-thuc/106-thit-bo/">Thịt bò</path>
             <path id="4" link="/cong-thuc/186-thit-bo/">Thịt bê</path>
             <path id="5" link="/cong-thuc/107-thit-cuu/">Thịt cừu</path>
             <path id="6" link="/cong-thuc/91-loai-mon/">Thịt lợn</path>

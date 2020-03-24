@@ -20,7 +20,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import com.sun.tools.xjc.api.ErrorListener;
 import com.sun.tools.xjc.api.S2JJAXBModel;
+import javax.xml.XMLConstants;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -58,19 +64,16 @@ public class JAXBUtils {
      * @param stream
      * @return java class
      */
-    public static <T> T unmarshalJavaObject(InputStream stream, T t) {
-        if (t == null) {
-            return t;
-        }
-        T result = null;
+    public static <T> T unMarshal(InputStream stream, T t) {
         try {
             JAXBContext context = JAXBContext.newInstance(t.getClass());
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            result = (T) unmarshaller.unmarshal(stream);
+            T result = (T) unmarshaller.unmarshal(stream);
+            return result;
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return null;
     }
 
     /**
@@ -145,5 +148,27 @@ public class JAXBUtils {
         } catch (IOException ex) {
             Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     *
+     * @param inputStream
+     * @param schemaDoc
+     * @return
+     */
+    public static boolean validateXML(InputStream inputStream, String schemaDoc) {
+        try {
+            SchemaFactory factory
+                    = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = factory.newSchema(new File(schemaDoc));
+            Validator validator = schema.newValidator();
+            SAXSource source = new SAXSource(new InputSource(inputStream));
+            validator.validate(source);
+            return true;
+        } catch (SAXException | IOException ex) {
+            System.out.println("XSD occurs errors " + ex.getMessage());
+//            Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

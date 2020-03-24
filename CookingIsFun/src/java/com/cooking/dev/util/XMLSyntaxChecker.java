@@ -70,9 +70,7 @@ public class XMLSyntaxChecker {
                 case CONTENT:
                     if (c == LT) {
                         state = OPEN_BRACKET;
-                        writer.append(content.toString()
-                                .trim()
-                                .replace("&", "&amp;"));
+                        writer.append(content.toString().trim().replace("&", "&amp;"));
                     } else {
                         content.append(c);
                     }

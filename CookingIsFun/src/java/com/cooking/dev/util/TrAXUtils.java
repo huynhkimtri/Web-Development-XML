@@ -26,6 +26,14 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class TrAXUtils {
 
+    /**
+     *
+     * @param xmlDoc
+     * @param xsltDoc
+     * @throws TransformerConfigurationException
+     * @throws TransformerException
+     * @throws FileNotFoundException
+     */
     public static void transformXMLUsingXSLT(String xmlDoc, String xsltDoc)
             throws TransformerConfigurationException, TransformerException, FileNotFoundException {
         TransformerFactory factory = TransformerFactory.newInstance();
@@ -36,13 +44,25 @@ public class TrAXUtils {
         transformer.transform(xml, result);
     }
 
+    /**
+     *
+     * @param stream
+     * @param xslDoc
+     * @return
+     * @throws TransformerConfigurationException
+     * @throws TransformerException
+     * @throws UnsupportedEncodingException
+     */
     public static InputStream transformXML(InputStream stream, String xslDoc)
             throws TransformerConfigurationException, TransformerException, UnsupportedEncodingException {
         StringWriter writer = new StringWriter();
         StreamResult streamResult = new StreamResult(writer);
+        
         TransformerFactory transformFactory = TransformerFactory.newInstance();
         Transformer transformer = transformFactory.newTransformer(new StreamSource(new File(xslDoc)));
+        
         transformer.transform(new StreamSource(stream), streamResult);
+        
         return new ByteArrayInputStream(writer.toString().getBytes(StandardCharsets.UTF_8));
     }
 }

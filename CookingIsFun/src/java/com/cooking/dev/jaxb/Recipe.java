@@ -1,6 +1,9 @@
 package com.cooking.dev.jaxb;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.math.BigInteger;
+import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -64,7 +67,7 @@ public class Recipe {
     protected String image;
     protected ListCategories listCategories;
     protected String description;
-    protected BigInteger servings;
+    protected String servings;
     protected BigInteger prepTime;
     protected BigInteger cookTime;
     protected ListIngredients listIngredients;
@@ -173,10 +176,10 @@ public class Recipe {
     /**
      * Gets the value of the servings property.
      *
-     * @return possible object is {@link BigInteger }
+     * @return possible object is {@link String }
      *
      */
-    public BigInteger getServings() {
+    public String getServings() {
         return servings;
     }
 
@@ -186,7 +189,7 @@ public class Recipe {
      * @param value allowed object is {@link BigInteger }
      *
      */
-    public void setServings(BigInteger value) {
+    public void setServings(String value) {
         this.servings = value;
     }
 
@@ -292,18 +295,8 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe {\n"
-                + "\tid: " + id + ",\n"
-                + "\tname: " + name + ",\n"
-                + "\tlink: " + link + ",\n"
-                + "\timage: " + image + ",\n"
-                + "\tlistCategories: " + listCategories + ",\n"
-                + "\tdescription: " + description + ",\n"
-                + "\tservings: " + servings + ",\n"
-                + "\tprepTime: " + prepTime + ",\n"
-                + "\tcookTime: " + cookTime + ",\n"
-                + "\tlistIngredients: " + listIngredients + ",\n"
-                + "\tlistIntructions: " + listIntructions + "\n}";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this);
     }
 
 }

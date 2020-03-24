@@ -20,7 +20,9 @@
             
             <servings>
                 <xsl:variable name="servings" select="//div[@class='entry-detail_meta mt30']//p[2]"/>
-                <xsl:value-of select="translate($servings, translate($servings, '0123456789', ''), '')"/>
+                <!--<xsl:value-of select="translate($servings, '0123456789./-', '')"/>-->
+                <xsl:value-of select="translate($servings, translate($servings, '0123456789-', ''), '')"/>
+                <!--<xsl:value-of select="//div[@class='entry-detail_meta mt30']//p[2]"/>-->
             </servings>
             
             <prepTime>
@@ -35,11 +37,11 @@
             
             <listIngredients>
                 <xsl:for-each select="//ul[@class='menu-ingredients']/li">
-                    <ingredientItem>
+                    <ingredient>
                         <xsl:variable name="item" select="."/>
                         <xsl:variable name="quantity" select="translate($item, translate($item, '0123456789./-', ''), '')"/>
                         <xsl:variable name="name" select=".//a"/>
-                        <xsl:variable name="unit" select="substring-before(substring-after($item, $quantity), $name)" />
+                        <xsl:variable name="unit" select="normalize-space(substring-before(substring-after($item, $quantity), $name))" />
                         <name>
                             <xsl:value-of select="$name"/>                            
                         </name>
@@ -49,20 +51,20 @@
                         <quantity>
                             <xsl:value-of select="$quantity"/>
                         </quantity>
-                    </ingredientItem>
+                    </ingredient>
                 </xsl:for-each>
             </listIngredients>
             
             <listIntructions>
                 <xsl:for-each select="//ul[@class='menu-directions']/li">
-                    <instructionItem>
+                    <instruction>
                         <step>
                             <xsl:value-of select=".//div/span[@class='num-step']"/>
                         </step>
                         <detail>
                             <xsl:value-of select=".//div[@class='it-intro']"/>
                         </detail>
-                    </instructionItem>
+                    </instruction>
                 </xsl:for-each>
             </listIntructions>
             

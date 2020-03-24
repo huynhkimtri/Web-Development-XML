@@ -6,14 +6,12 @@
 package com.cooking.dev.util;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,20 +47,25 @@ public class CrawlerUtils {
         try {
             URL url = new URL(link);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(8 * 1000);
-            connection.setConnectTimeout(8 * 1000);
-
-            InputStream is = connection.getInputStream();
-            result = getString(is);
+//            connection.setReadTimeout(8 * 1000);
+//            connection.setConnectTimeout(8 * 1000);
+            InputStream inputStream = connection.getInputStream();
+            result = getStringFromStream(inputStream);
         } catch (IOException ex) {
             Logger.getLogger(CrawlerUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
 
-    private static String getString(InputStream inputStream) {
+    /**
+     *
+     * @param inputStream
+     * @return
+     */
+    public static String getStringFromStream(InputStream inputStream) {
         StringBuilder builder = new StringBuilder();
-        InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        InputStreamReader streamReader
+                = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         try (BufferedReader reader = new BufferedReader(streamReader)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -112,9 +115,7 @@ public class CrawlerUtils {
 
             System.out.println("Finished!");
             return true;
-        } catch (TransformerException | SAXException | IOException ex) {
-            Logger.getLogger(CrawlerUtils.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
+        } catch (TransformerException | SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(CrawlerUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;

@@ -5,26 +5,12 @@
  */
 package com.cooking.dev.dao;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  *
  * @author huynh
- * @param <T>
  */
-public interface Dao<T> {
+public class IngredientDaoImpl implements Serializable {
 
-    List<T> getList();
-
-    T getById(int id);
-
-    boolean save(T t);
-
-    boolean saveList(List<T> ts);
-
-    void update(T t);
-
-    void delete(T t);
-
-    int total();
 }

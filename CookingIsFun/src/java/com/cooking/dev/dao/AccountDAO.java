@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cooking.dev.dao.impl;
+package com.cooking.dev.dao;
 
 import com.cooking.dev.util.DBUtils;
 import java.io.Serializable;
@@ -25,19 +25,26 @@ public class AccountDAO implements Serializable {
             = "SELECT isAdmin FROM [dbo].[tblAccount]\n"
             + "WHERE username = ? AND password = ?";
 
+    /**
+     * Check login
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean login(String username, String password) {
         try (Connection con = DBUtils.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement(SQL_LOGIN)) {
                 ps.setString(1, username);
                 ps.setString(2, password);
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
+                    if (rs.next() && rs.getBoolean("isAdmin")) {
                         return true;
                     }
                 }
             }
         } catch (NamingException | SQLException ex) {
-            Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

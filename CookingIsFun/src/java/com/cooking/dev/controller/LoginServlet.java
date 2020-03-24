@@ -6,8 +6,9 @@
 package com.cooking.dev.controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,13 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author huynh
  */
-public class FrontController extends HttpServlet {
-
-//    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String INDEX_PAGE = "views/index.jsp";
-    private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String CRAWL_RECIPE_CONTROLLER = "CrawlRecipeController";
-    private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,33 +31,7 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-//        response.setContentType("text/html;charset=UTF-8");
-        String path = INDEX_PAGE;
-
-        try {
-            String action = request.getParameter("action");
-            if (action != null) {
-                switch (action) {
-                    case "admin":
-                        path = ADMIN_CONTROLLER;
-                        break;
-                    case "crawlRecipe":
-                        path = CRAWL_RECIPE_CONTROLLER;
-                        break;
-                    case "crawlIngredient":
-                        path = CRAWL_INGREDIENT_CONTROLLER;
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                // do nothing
-            }
-        } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request, response);
-        }
+        response.setContentType("text/html;charset=UTF-8");
 
     }
 
