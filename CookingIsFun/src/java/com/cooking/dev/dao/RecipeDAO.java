@@ -7,13 +7,18 @@ package com.cooking.dev.dao;
 
 import com.cooking.dev.jaxb.IngredientItem;
 import com.cooking.dev.jaxb.InstructionItem;
+import com.cooking.dev.jaxb.ListIngredients;
+import com.cooking.dev.jaxb.ListIntructions;
 import com.cooking.dev.jaxb.Recipe;
 import com.cooking.dev.util.DBUtils;
 import com.cooking.dev.util.UnicodeUtils;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +45,46 @@ public class RecipeDAO implements Serializable {
     private static final String SQL_SAVE_INGREDIENT
             = "INSERT INTO [dbo].[tblListOfIngredient]([RecipeId],[Name],[Unit],[Quantity])\n"
             + "VALUES(?, ?, ?, ?)";
+    private static final String SQL_SELECT_TOP
+            = "SELECT TOP (?) [Id]\n"
+            + "      ,[Name]\n"
+            + "      ,[Image]\n"
+            + "      ,[Link]\n"
+            + "      ,[Description]\n"
+            + "      ,[Servings]\n"
+            + "      ,[PrepTime]\n"
+            + "      ,[CookTime]\n"
+            + "  FROM [dbo].[tblRecipe]"
+            + "ORDER BY [Id] DESC";
+    private static final String SQL_FIND_BY_ID
+            = "SELECT [Name]\n"
+            + "      ,[Image]\n"
+            + "      ,[Link]\n"
+            + "      ,[Description]\n"
+            + "      ,[Servings]\n"
+            + "      ,[PrepTime]\n"
+            + "      ,[CookTime]\n"
+            + "FROM [dbo].[tblRecipe]"
+            + "WHERE [Id] = ?";
+    private static final String SQL_FIND_INSTRUCTIONS
+            = "SELECT [Id]\n"
+            + "      ,[Step]\n"
+            + "      ,[Detail]\n"
+            + "FROM [dbo].[tblListOfInstruction]\n"
+            + "WHERE [RecipeId] = ?";
+    private static final String SQL_FIND_INGREDIENTS
+            = "SELECT [Id]\n"
+            + "      ,[Name]\n"
+            + "      ,[Unit]\n"
+            + "      ,[Quantity]\n"
+            + "FROM [dbo].[tblListOfIngredient]\n"
+            + "WHERE [RecipeId] = ?";
+
+    private List<Recipe> listOfRecipes;
+
+    public List<Recipe> getListOfRecipes() {
+        return listOfRecipes;
+    }
 
     /**
      * Sets the designated parameter to the given Java value.
@@ -139,4 +184,104 @@ public class RecipeDAO implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @param topNum
+     * @throws SQLException
+     */
+    public void findTop(int topNum) throws SQLException {
+        try (Connection con = DBUtils.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement(SQL_SELECT_TOP)) {
+                ps.setInt(1, topNum);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Recipe recipe = new Recipe();
+                        recipe.setId(BigInteger.valueOf(rs.getInt("Id")));
+                        recipe.setName(rs.getString("Name"));
+                        recipe.setLink(rs.getString("Link"));
+                        recipe.setImage(rs.getString("Image"));
+                        recipe.setDescription(rs.getString("Description"));
+                        recipe.setServings(rs.getString("Servings"));
+                        recipe.setPrepTime(BigInteger.valueOf(rs.getInt("PrepTime")));
+                        recipe.setCookTime(BigInteger.valueOf(rs.getInt("CookTime")));
+                        if (listOfRecipes == null) {
+                            listOfRecipes = new ArrayList<>();
+                        }
+                        listOfRecipes.add(recipe);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public Recipe findById(int id) throws SQLException {
+        Recipe recipe = null;
+        InstructionItem instruction;
+        IngredientItem ingredient;
+        ListIntructions instructions;
+        ListIngredients ingredients;
+        try (Connection con = DBUtils.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement(SQL_FIND_BY_ID)) {
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        recipe = new Recipe();
+                        recipe.setId(BigInteger.valueOf(id));
+                        recipe.setName(rs.getString("Name"));
+                        recipe.setLink(rs.getString("Link"));
+                        recipe.setImage(rs.getString("Image"));
+                        recipe.setDescription(rs.getString("Description"));
+                        recipe.setServings(rs.getString("Servings"));
+                        recipe.setPrepTime(BigInteger.valueOf(rs.getInt("PrepTime")));
+                        recipe.setCookTime(BigInteger.valueOf(rs.getInt("CookTime")));
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (recipe != null) {
+                try (PreparedStatement ps = con.prepareStatement(SQL_FIND_INSTRUCTIONS)) {
+                    ps.setInt(1, id);
+                    instructions = new ListIntructions();
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            instruction = new InstructionItem();
+                            instruction.setStep(BigInteger.valueOf(rs.getInt("Step")));
+                            instruction.setDetail(rs.getString("Detail"));
+                            instructions.getInstruction().add(instruction);
+                        }
+                        recipe.setListIntructions(instructions);
+                    }
+                }
+                try (PreparedStatement ps = con.prepareStatement(SQL_FIND_INGREDIENTS)) {
+                    ps.setInt(1, id);
+                    ingredients = new ListIngredients();
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            ingredient = new IngredientItem();
+                            ingredient.setName(rs.getString("Name"));
+                            ingredient.setQuantity(rs.getString("Quantity"));
+                            ingredient.setUnit(rs.getString("Unit"));
+                            ingredients.getIngredient().add(ingredient);
+                        }
+                        recipe.setListIngredients(ingredients);
+                    }
+                }
+                return recipe;
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

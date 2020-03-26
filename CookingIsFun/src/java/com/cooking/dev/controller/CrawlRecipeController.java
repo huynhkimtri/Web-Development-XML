@@ -9,8 +9,8 @@ import com.cooking.dev.jaxb.Domain;
 import com.cooking.dev.jaxb.Path;
 import com.cooking.dev.service.RecipeService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,34 +40,29 @@ public class CrawlRecipeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ADMIN_PAGE;
         HttpSession session = request.getSession();
         Domain domain = (Domain) session.getAttribute("RECIPE_DOMAINS");
         String origin = request.getParameter("origin");
-        // get the link of the first path => get all
-//        String path = domain.getPaths().getPath().get(0).getLink();
 
         RecipeService service = new RecipeService(request.getServletContext());
         List<Path> listOfPaths = domain.getPaths().getPath();
-//        List<Recipe> listOfRecipe;
-
-        if (listOfPaths != null) {
-            int sizePaths = listOfPaths.size();
-            String path;
-            for (int i = 0; i < sizePaths; i++) {
-                path = listOfPaths.get(i).getLink();
-                int cateId = listOfPaths.get(i).getId().intValue();
-                service.crawlRecipesTest(domain, origin, path, cateId);
+        try (PrintWriter out = response.getWriter()) {
+            if (listOfPaths != null) {
+                int sizePaths = listOfPaths.size();
+                String path;
+                String value;
+                for (int i = 0; i < 2; i++) {
+                    Path p = listOfPaths.get(i);
+                    path = p.getLink();
+                    value = p.getValue();
+                    int cateId = listOfPaths.get(i).getId().intValue();
+                    service.crawlRecipes(domain, origin, path, cateId);
+                    String tmp = origin + path;
+                    out.println("<p><strong>" + value + "</strong><br><a target='_blank' href='"
+                            + tmp + "'>" + tmp + "</a></p>");
+                }
             }
-//            for (int i = 0; i < sizePaths; i++) {
-//                path = listOfPaths.get(i).getLink();
-//                service.crawlRecipesTest(domain, origin, path);
-//            }
-            url = RESULT_PAGE;
         }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

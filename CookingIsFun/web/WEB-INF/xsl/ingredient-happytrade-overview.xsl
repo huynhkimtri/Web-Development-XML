@@ -11,17 +11,20 @@
                 <xsl:variable name="image" select="./div[@class='img-top']"/>
                 <xsl:variable name="body" select="./div[@class='info-body']"/>
                 <ingredient>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$body/div[@class='buy-fast']/a/@data-id"/>
+                    </xsl:attribute>
                     <link>
-                        <xsl:value-of select="body/h3/a/@href"/>
+                        <xsl:value-of select="$body/h3/a/@href"/>
                     </link>
                     <image>
                         <xsl:value-of select="$image/a/img/@src"/>
                     </image>
                 </ingredient>
             </xsl:for-each>
-            <nextpage>
-                <xsl:value-of select="//a[@class='page-node']//span"/>
-            </nextpage>
+            <nextPage>
+                <xsl:value-of select="//div[@id='pagination']/a[last()]/@href"/>
+            </nextPage>
             
         </ingredients>
     </xsl:template>

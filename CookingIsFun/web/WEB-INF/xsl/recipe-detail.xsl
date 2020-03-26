@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:output method="xml" encoding="UTF-8"/>
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
     <xsl:template match="/">
         <recipe xmlns="http://www.cookingisfun.com/XMLSchema/dev">
@@ -39,9 +39,10 @@
                 <xsl:for-each select="//ul[@class='menu-ingredients']/li">
                     <ingredient>
                         <xsl:variable name="item" select="."/>
-                        <xsl:variable name="quantity" select="translate($item, translate($item, '0123456789./-', ''), '')"/>
                         <xsl:variable name="name" select=".//a"/>
-                        <xsl:variable name="unit" select="normalize-space(substring-before(substring-after($item, $quantity), $name))" />
+                        <xsl:variable name="tmp" select="substring-before($item, $name)"/>
+                        <xsl:variable name="quantity" select="translate($tmp, translate($tmp, '0123456789/-', ''), '')"/>
+                        <xsl:variable name="unit" select="normalize-space(substring-after($tmp, $quantity))" />
                         <name>
                             <xsl:value-of select="$name"/>                            
                         </name>

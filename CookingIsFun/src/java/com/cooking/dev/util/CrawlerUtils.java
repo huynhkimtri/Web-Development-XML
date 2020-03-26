@@ -5,11 +5,13 @@
  */
 package com.cooking.dev.util;
 
+import com.cooking.dev.service.RecipeService;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -34,6 +36,26 @@ import org.xml.sax.SAXParseException;
  * @author huynh
  */
 public class CrawlerUtils {
+
+    /**
+     *
+     * @param link
+     * @param xslDoc
+     * @return
+     */
+    public static InputStream crawlAndTransformXML(String link, String xslDoc) {
+        InputStream stream = null;
+        try {
+            String rawData = crawlDataFromLink(link);
+            stream = XMLTextUtils.refineHTMLToXML(rawData);
+            if (stream != null) {
+                stream = TrAXUtils.transformXML(stream, xslDoc);
+            }
+        } catch (TransformerException | UnsupportedEncodingException ex) {
+            Logger.getLogger(RecipeService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return stream;
+    }
 
     /**
      * Crawl string data from link
@@ -77,6 +99,11 @@ public class CrawlerUtils {
         return builder.toString().trim();
     }
 
+    /**
+     *
+     * @param is
+     * @return
+     */
     private static boolean checkWellformedXML(InputStream is) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

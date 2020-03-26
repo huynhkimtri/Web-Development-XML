@@ -11,36 +11,59 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin - CookingIsFun</title>
-        <style>
-            .loader {
-                border: 8px solid #d3efff; /* Light Blue */
-                border-top: 8px solid #0099ff; /* Blue */
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                animation: spin 2s linear infinite;
-            }
-
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        </style>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+              rel="stylesheet" 
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+              crossorigin="anonymous">
         <script>
+            var loadingElement = '<h1>Crawling...</h1><div id="loading" class="d-flex justify-content-center mt-4"><div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">'
+                    + '<span class="sr-only">Crawling...</span></div></div>';
+            /**
+             * 
+             * @param {type} origin
+             * @returns {undefined}
+             */
             function crawlRecipe(origin) {
+                var button = document.getElementById('btn-crawl-recipe-xhr');
+                button.disabled = true;
+                button.innerHTML = 'Crawling';
                 var result = document.getElementById("crawl-result");
-                result.innerHTML = "Status: Crawling...";
-                result.innerHTML += '<div class="loader"></div>';
+                result.innerHTML = loadingElement;
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function () {
                     if (xhr.status === 200 && xhr.readyState === 4) {
                         var res = xhr.responseText;
-                        result.innerHTML = "Status: Crawled!\n";
-                        result.innerHTML += "Response:\n";
+                        result.innerHTML = '<h1>Result:</h1>';
                         result.innerHTML += res;
+                        button.disabled = false;
+                        button.innerHTML = 'Crawl';
                     }
                 };
                 var request = 'FrontController?origin=' + origin + '&action=crawlRecipe';
+                xhr.open('POST', request, true);
+                xhr.send();
+            }
+            /**
+             * 
+             * @param {type} origin
+             * @returns {undefined}
+             */
+            function crawlIngredient(origin) {
+                var button = document.getElementById('btn-crawl-ingredient-xhr');
+                button.disabled = true;
+                button.innerHTML = 'Crawling';
+                var result = document.getElementById("crawl-result");
+                result.innerHTML = loadingElement;
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        result.innerHTML = '<h1>Result:</h1>';
+                        result.innerHTML += xhr.responseText;
+                        button.disabled = false;
+                        button.innerHTML = 'Crawl';
+                    }
+                };
+                var request = 'FrontController?origin=' + origin + '&action=crawlIngredient';
                 xhr.open('POST', request, true);
                 xhr.send();
             }
@@ -48,30 +71,52 @@
     </head>
 
     <body>
-        <div>
-            <h1>Welcome to Admin Page</h1>
-            <c:set value="${sessionScope.RECIPE_DOMAINS}" var="recipeDomains"/>
-            <c:set value="${sessionScope.INGREDIENT_DOMAINS}" var="ingredientDomains"/>
-            <form action="FrontController" method="post">
-                <div>
-                    <label>Recipe Domain:</label>
-                    <select name="origin">
-                        <option value="${recipeDomains.origin}">${recipeDomains.origin}</option>
-                    </select>
-                    <button type="submit" value="crawlRecipe" name="action">Crawl</button>
-                    <button type="button" onclick="crawlRecipe('${recipeDomains.origin}')">Crawl with XHR</button>
+        <div class="container">
+            <div class="container justify-content-center">
+                <div class="text-center mb-5 mt-5">
+                    <h1>Welcome to Admin Page</h1>
                 </div>
-            </form>
-            <form action="FrontController" method="post">
-                <div>
-                    <label>Ingredient Domain:</label>
-                    <select name="origin">
-                        <option value="${ingredientDomains.origin}">${ingredientDomains.origin}</option>
-                    </select>
-                    <button type="submit" value="crawlIngredient" name="action">Crawl</button>
+                <c:set value="${sessionScope.RECIPE_DOMAINS}" var="recipeDomains"/>
+                <c:set value="${sessionScope.INGREDIENT_DOMAINS}" var="ingredientDomains"/>
+
+                <form action="FrontController" method="post">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="select-domain-recipe">
+                                Recipe Domain:
+                            </label>
+                        </div>
+                        <select class="custom-select" id="select-domain-recipe" name="origin">
+                            <option value="${recipeDomains.origin}">
+                                ${recipeDomains.origin}
+                            </option>
+                        </select>
+                        <button id="btn-crawl-recipe-xhr" class="btn btn-primary ml-3" 
+                                type="button" onclick="crawlRecipe('${recipeDomains.origin}')">
+                            Crawl
+                        </button>
+                    </div>
+                </form>
+                <form action="FrontController" method="post">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="select-domain-recipe">Ingredient Domain:</label>
+                        </div>
+                        <select class="custom-select" id="select-domain-recipe" name="origin">
+                            <option value="${ingredientDomains.origin}">
+                                ${ingredientDomains.origin}
+                            </option>
+                        </select>
+                        <button id="btn-crawl-ingredient-xhr" class="btn btn-primary ml-3" 
+                                type="button" onclick="crawlIngredient('${ingredientDomains.origin}')">
+                            Crawl
+                        </button>
+                    </div>
+                </form>
+                <div id="crawl-result" class="text-center mb-4 mt-4">
                 </div>
-            </form>
-            <div id="crawl-result"></div>
+
+            </div>
         </div>
     </body>
 

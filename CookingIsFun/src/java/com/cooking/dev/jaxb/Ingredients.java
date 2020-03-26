@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -31,10 +32,11 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ingredients", propOrder = {
+@XmlType(name = "", propOrder = {
     "ingredient",
     "nextPage"
 })
+@XmlRootElement(name = "ingredients")
 public class Ingredients {
 
     @XmlElement(required = true)

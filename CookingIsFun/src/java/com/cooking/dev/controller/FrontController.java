@@ -19,9 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
 //    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String INDEX_PAGE = "views/index.jsp";
+    private static final String HOME_PAGE = "views/home.jsp";
     private static final String ADMIN_CONTROLLER = "AdminController";
+    private static final String HOME_CONTROLLER = "HomeController";
     private static final String CRAWL_RECIPE_CONTROLLER = "CrawlRecipeController";
+    private static final String RECIPE_DETAIL_CONTROLLER = "RecipeDetailController";
     private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
 
     /**
@@ -37,7 +39,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
 
 //        response.setContentType("text/html;charset=UTF-8");
-        String path = INDEX_PAGE;
+        String path = HOME_CONTROLLER;
 
         try {
             String action = request.getParameter("action");
@@ -52,11 +54,14 @@ public class FrontController extends HttpServlet {
                     case "crawlIngredient":
                         path = CRAWL_INGREDIENT_CONTROLLER;
                         break;
+                    case "RecipeDetail":
+                        path = RECIPE_DETAIL_CONTROLLER;
+                        break;
                     default:
                         break;
                 }
             } else {
-                // do nothing
+                // home 
             }
         } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(path);

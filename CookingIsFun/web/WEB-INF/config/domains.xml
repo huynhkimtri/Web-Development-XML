@@ -34,41 +34,41 @@
 
     <domain origin="https://happytrade.org">
         <paths>
-            <path id="1" link="/collections/all">Tất cả nguyên liệu</path>
-            <path id="2" link="/collections/rau-huu-co">Nhóm rau hữu cơ</path>
-            <path id="3" link="/collections/cu-qua-huu-co">Nhóm củ quả hữu cơ</path>
-            <path id="4" link="/collections/nam-sach">Nhóm nấm - rau mầm</path>
-            <path id="5" link="/collections/trai-cay-sach-ngon-hcm">Nhóm trái cây sạch</path>
-            <path id="6" link="/collections/thit-heo-huu-co-ausfarm">Nhóm thịt heo hữu cơ</path>
-            <path id="7" link="/collections/thit-bo-sach-huong-huu-co">Nhóm thịt bò hữu cơ</path>
-            <path id="8" link="/collections/trung-ga-ac-tuoi-sach">Nhóm trứng</path>
-            <path id="9" link="/collections/thuy-hai-san-tu-nhien">Nhóm thủy hải sản</path>
-            <path id="10" link="/collections/cac-loai-dau-hat-huu-co">Nhóm các loại đậu và hạt</path>
-            <path id="11" link="/collections/gao-huu-co">Nhóm gạo hữu cơ</path>
-            <path id="12" link="/collections/mi-huu-co">Nhóm mì hữu cơ</path>
-            <path id="13" link="/collections/gia-vi-huu-co">Nhóm gia vị hữu cơ</path>
+            <path id="0" link="/collections/all">Tất cả nguyên liệu</path>
+            <path id="1" link="/collections/rau-huu-co">Nhóm rau hữu cơ</path>
+            <path id="2" link="/collections/cu-qua-huu-co">Nhóm củ quả hữu cơ</path>
+            <path id="3" link="/collections/nam-sach">Nhóm nấm - rau mầm</path>
+            <path id="4" link="/collections/trai-cay-sach-ngon-hcm">Nhóm trái cây sạch</path>
+            <path id="5" link="/collections/thit-heo-huu-co-ausfarm">Nhóm thịt heo hữu cơ</path>
+            <path id="6" link="/collections/thit-bo-sach-huong-huu-co">Nhóm thịt bò hữu cơ</path>
+            <path id="7" link="/collections/trung-ga-ac-tuoi-sach">Nhóm trứng</path>
+            <path id="8" link="/collections/thuy-hai-san-tu-nhien">Nhóm thủy hải sản</path>
+            <path id="9" link="/collections/cac-loai-dau-hat-huu-co">Nhóm các loại đậu và hạt</path>
+            <path id="10" link="/collections/gao-huu-co">Nhóm gạo hữu cơ</path>
+            <path id="11" link="/collections/mi-huu-co">Nhóm mì hữu cơ</path>
+            <path id="12" link="/collections/gia-vi-huu-co">Nhóm gia vị hữu cơ</path>
         </paths>
-        <xslOverview>WEB-INF/xsl/ingredient-overview.xsl</xslOverview>
-        <xslDetail>WEB-INF/xsl/ingredient-detail.xsl</xslDetail>
+        <xslOverview>WEB-INF/xsl/ingredient-happytrade-overview.xsl</xslOverview>
+        <xslDetail>WEB-INF/xsl/ingredient-happytrade-detail.xsl</xslDetail>
     </domain>
 
     <domain origin="https://organicfood.vn">
         <paths link="/cong-thuc">
-            <path id="01" link="/cong-thuc/all">Tất cả nguyên liệu</path>
-            <path id="02" link="/cong-thuc/rau-cu-qua/rau-huu-co">Nhóm rau hữu cơ</path>
-            <path id="02" link="/cong-thuc/rau-cu-qua/rau-gia-vi">Nhóm rau gia vị</path>
-            <path id="03" link="/cong-thuc/rau-cu-qua/rau-sach">Nhóm củ quả hữu cơ</path>
-            <path id="04" link="/cong-thuc/rau-cu-qua/nam-va-rau-mam">Nhóm nấm - rau mầm</path>
-            <path id="05" link="/cong-thuc/thit-trung/thit-bo">Nhóm thịt bò</path>
-            <path id="05" link="/cong-thuc/thit-trung/thit-heo">Nhóm thịt heo</path>
-            <path id="05" link="/cong-thuc/thit-trung/thit-gia-cam-trung">Nhóm thịt gia cầm - trứng</path>
-            <path id="08" link="/cong-thuc/gia-vi-va-phu-lieu/gia-vi-huu-co">Nhóm gia vị</path>
-            <path id="08" link="/cong-thuc/thuy-hai-san/muc">Nhóm mực</path>
-            <path id="08" link="/cong-thuc/thuy-hai-san/tom">Nhóm tôm cua</path>
-            <path id="08" link="/cong-thuc/thuy-hai-san/thuy-hai-san-khac">Nhóm thủy hải sản khác</path>
+            <path id="0" link="/cong-thuc/all">Tất cả nguyên liệu</path>
+            <path id="1" link="/cong-thuc/rau-cu-qua/rau-huu-co">Nhóm rau hữu cơ</path>
+            <path id="2" link="/cong-thuc/rau-cu-qua/rau-gia-vi">Nhóm rau gia vị</path>
+            <path id="3" link="/cong-thuc/rau-cu-qua/rau-sach">Nhóm củ quả hữu cơ</path>
+            <path id="4" link="/cong-thuc/rau-cu-qua/nam-va-rau-mam">Nhóm nấm - rau mầm</path>
+            <path id="5" link="/cong-thuc/thit-trung/thit-bo">Nhóm thịt bò</path>
+            <path id="6" link="/cong-thuc/thit-trung/thit-heo">Nhóm thịt heo</path>
+            <path id="7" link="/cong-thuc/thit-trung/thit-gia-cam-trung">Nhóm thịt gia cầm - trứng</path>
+            <path id="8" link="/cong-thuc/gia-vi-va-phu-lieu/gia-vi-huu-co">Nhóm gia vị</path>
+            <path id="9" link="/cong-thuc/thuy-hai-san/muc">Nhóm mực</path>
+            <path id="10" link="/cong-thuc/thuy-hai-san/tom">Nhóm tôm cua</path>
+            <path id="11" link="/cong-thuc/thuy-hai-san/thuy-hai-san-khac">Nhóm thủy hải sản khác</path>
         </paths>
-        <xslOverview>WEB-INF/xsl/ingredient-overview.xsl</xslOverview>
-        <xslDetail>WEB-INF/xsl/ingredient-detail.xsl</xslDetail>
+        <xslOverview>WEB-INF/xsl/ingredient-organicfood-overview.xsl</xslOverview>
+        <xslDetail>WEB-INF/xsl/ingredient-organicfood-detail.xsl</xslDetail>
     </domain>
 
     <domain origin="https://namanmarket.com">
@@ -94,8 +94,8 @@
             <path id="01" link="/cong-thuc/all">Nhóm thủy hải đông lạnh</path>
             <path id="01" link="/cong-thuc/all">Nhóm cá đóng hộp</path>
         </paths>
-        <xslOverview>WEB-INF/xsl/ingredient-overview.xsl</xslOverview>
-        <xslDetail>WEB-INF/xsl/ingredient-detail.xsl</xslDetail>
+        <xslOverview>WEB-INF/xsl/ingredient-namanmarket-overview.xsl</xslOverview>
+        <xslDetail>WEB-INF/xsl/ingredient-namanmarket-detail.xsl</xslDetail>
     </domain>
 
 </domains>

@@ -1,0 +1,255 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 26, 2020, 5:31:07 PM
+    Author     : huynh
+*/
+
+*, html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*font-family: 'Alegreya Sans', sans-serif;*/
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: white;
+    font-size: 100%;
+}
+
+.clear::before{
+    display: table;
+    content: "";
+}
+.clear::after{
+    display: table;
+    content: "";
+    clear: both;
+}
+
+header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.logo-left {
+    display: table;
+    cursor: default;
+}
+
+.logo-left span {
+    padding: 12px;
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #c00a27;
+}
+
+.list-tag {
+    display: table;
+}
+
+.list-tag .wrap-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.list-tag .wrap-list .item-list {
+    list-style: none;
+}
+
+.list-tag .wrap-list .item-list span {
+    display: inline-block;
+    padding: 25px 10px;
+    cursor: pointer;
+}
+
+.list-tag .wrap-list .item-list span:hover {
+    background-color: #c00a27;
+    color: #ffffff;
+}
+
+.search-right {
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+}
+
+.search-right .txtSearch {
+    border: 2px solid #9e9e9e;
+    width: 250px;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.search-right .button {
+    border: 1px solid #c00a27;
+    width: 80px;
+    height: 30px;
+    background-color: #c00a27;
+    color: #ffffff;
+    font-size: medium;
+}
+
+content {
+    padding: 10px 70px;
+    display: block;
+}
+
+.product-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-product{
+    width: 45%;
+    height: auto;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-product .content h3 {
+    line-height: 4rem;
+}
+
+.content-product .content p {
+    line-height: 2rem;
+    font-size: 1rem;
+}
+
+.content-product .button {
+    margin: 30px 0;
+    padding: 10px 20px;
+    border: 2px solid #c00a27;
+    background-color: #c00a27;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.content-product button:hover {
+    background-color: #ffffff;
+    color: #c00a27;
+}
+
+.image-product{
+    width: 45%;
+    height: auto;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-product img {
+    width: 100%;
+    transition: transform 0.7s;
+}
+.image-product:hover img {
+    transform: scale(1.1);
+}
+
+.image-product:hover .info {
+    display: flex;  
+}
+
+.image-product .info {
+    background-color: rgba(50, 116, 202, 0.61);
+}
+
+.image-product .info p{
+    color: #ffffff;
+    font-size: 2rem;
+    border-bottom: 2px solid #ffffff;
+}
+
+.image-product .info {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: space-around;
+
+    animation: animationProduct 0.7s forwards;  
+}
+
+
+footer {
+    width: 100%;
+    padding: 30px 0px;
+    vertical-align: middle;
+    text-align: center;
+    color: #ffffff;
+    background-color: #c00a27;
+}
+
+.search-center {
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+}
+
+.search-center .txtSearch {
+    border: 2px solid #9e9e9e;
+    width: 250px;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.search-center .button {
+    border: 1px solid #c00a27;
+    width: 200px;
+    height: 30px;
+    background-color: #c00a27;
+    color: #ffffff;
+    font-size: medium;
+    text-align: center;
+}
+
+
+.search-center .choosing {
+    background-color: graytext;
+}
+
+#suggestion {
+    width: 250px;
+    max-height: 200px;
+    position: absolute;
+    top: 50px;
+    background-color: white;
+    border: 1px solid pink;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    visibility: hidden;
+}
+
+.innerSuggest{
+    border: 1px solid red;
+}
+
+@keyframes animationProduct{
+    from{
+        transform: scale(2.5);
+        opacity: 0;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -8,9 +8,7 @@ package com.cooking.dev.controller;
 import com.cooking.dev.dao.RecipeDAO;
 import com.cooking.dev.jaxb.Recipe;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author huynh
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "RecipeDetailController", urlPatterns = {"/RecipeDetailController"})
+public class RecipeDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +36,16 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "views/home.jsp";
+        String url = "views/recipe-detail.jsp";
         try {
             response.setContentType("text/html;charset=UTF-8");
+            String idStr = request.getParameter("id");
+            int id = Integer.parseInt(idStr);
             RecipeDAO dao = new RecipeDAO();
-            dao.findTop(10);
-            List<Recipe> listOfRecipes = dao.getListOfRecipes();
-            request.setAttribute("TOP_RECIPES", listOfRecipes);
+            Recipe recipe = dao.findById(id);
+            request.setAttribute("RECIPE", recipe);
         } catch (SQLException ex) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecipeDetailController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);

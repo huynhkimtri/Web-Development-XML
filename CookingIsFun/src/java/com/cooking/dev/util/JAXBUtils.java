@@ -167,7 +167,6 @@ public class JAXBUtils {
             return true;
         } catch (SAXException | IOException ex) {
             System.out.println("XSD occurs errors " + ex.getMessage());
-//            Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

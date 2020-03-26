@@ -8,11 +8,47 @@ and open the template in the editor.
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+              rel="stylesheet" 
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+              crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            var btnCrawlRecipe = document.getElementById('btn-crawl-recipe');
+            var spinnerElement = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&ensp;Crawling...';
+            function crawling() {
+                var btnCrawlRecipeXHR = document.getElementById('btn-crawl-recipe-xhr');
+                btnCrawlRecipeXHR.disabled = true;
+                btnCrawlRecipeXHR.innerHTML = spinnerElement;
+            }
+        </script>
     </head>
     <body>
         <div>
             <h1 style="color: green">Crawling finished!!!</h1>
+            <div class="container jutify-content-center">
+                <h1>Welcome to Admin Page</h1>
+                <form action="FrontController" method="post">
+                    <div>
+                        <label>Recipe Domain:</label>
+                        <select name="origin">
+                            <option value="${recipeDomains.origin}">${recipeDomains.origin}</option>
+                        </select>
+                        <button id="btn-crawl-recipe" type="submit" class="btn btn-primary" value="crawlRecipe" name="action">Crawl</button>
+                        <button id="btn-crawl-recipe-xhr" type="button" onclick="crawling()" class="btn btn-primary">Crawl with XHR</button>
+                    </div>
+                </form>
+                <form action="FrontController" method="post">
+                    <div>
+                        <label>Ingredient Domain:</label>
+                        <select name="origin">
+                            <option value="${ingredientDomains.origin}">${ingredientDomains.origin}</option>
+                        </select>
+                        <button type="submit" value="crawlIngredient" name="action">Crawl</button>
+                    </div>
+                </form>
+                <div id="crawl-result"></div>
+            </div>
         </div>
     </body>
 </html>

@@ -17,7 +17,8 @@
                 <xsl:value-of select="$title"/>
             </name>
             <price>
-                <xsl:value-of select="//div[@class='product-price clearfix']//span"/>
+                <xsl:variable name="price" select="//div[@class='product-price clearfix']//span"/>
+                <xsl:value-of select="translate($price, ',₫', '')"/>
             </price>
             <description>
                 <xsl:value-of select="$description"/>

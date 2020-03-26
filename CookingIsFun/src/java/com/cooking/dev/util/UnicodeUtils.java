@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
 /**
  *
  * @author huynh
@@ -37,8 +36,11 @@ public class UnicodeUtils {
      * @return
      */
     public static String encode(String string) {
-//        string = string.replaceAll("&amp;", "&");
         string = string.replaceAll("&quot;", "\"");
+        string = string.replaceAll("&apos;", "'");
+        string = string.replaceAll("&#34;", "\"");
+        string = string.replaceAll("&#39;", "'");
+        string = string.replaceAll("&deg;", "độ");
         string = string.replaceAll("&Agrave;", "À");
         string = string.replaceAll("&agrave;", "à");
         string = string.replaceAll("&Aacute;", "Á");
