@@ -79,6 +79,18 @@ public class RecipeDAO implements Serializable {
             + "      ,[Quantity]\n"
             + "FROM [dbo].[tblListOfIngredient]\n"
             + "WHERE [RecipeId] = ?";
+    private static final String SQL_FIND_LIKE_NAME
+            = "SELECT TOP (1000) [Id]\n"
+            + "      ,[Name]\n"
+            + "      ,[Image]\n"
+            + "      ,[Link]\n"
+            + "      ,[Description]\n"
+            + "      ,[Servings]\n"
+            + "      ,[PrepTime]\n"
+            + "      ,[CookTime]\n"
+            + "  FROM [CookingIsFun].[dbo].[tblRecipe]\n"
+            + "  WHERE [Name] LIKE ?\n"
+            + "  ORDER BY [Id] DESC";
 
     private List<Recipe> listOfRecipes;
 
@@ -283,5 +295,38 @@ public class RecipeDAO implements Serializable {
             Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    /**
+     *
+     * @param likeName
+     */
+    public void findByName(String likeName) {
+        try (Connection con = DBUtils.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement(SQL_FIND_LIKE_NAME)) {
+                ps.setNString(1, '%' + likeName + '%');
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Recipe recipe = new Recipe();
+                        recipe.setId(BigInteger.valueOf(rs.getInt("Id")));
+                        recipe.setName(rs.getString("Name"));
+                        recipe.setLink(rs.getString("Link"));
+                        recipe.setImage(rs.getString("Image"));
+                        recipe.setDescription(rs.getString("Description"));
+                        recipe.setServings(rs.getString("Servings"));
+                        recipe.setPrepTime(BigInteger.valueOf(rs.getInt("PrepTime")));
+                        recipe.setCookTime(BigInteger.valueOf(rs.getInt("CookTime")));
+                        if (listOfRecipes == null) {
+                            listOfRecipes = new ArrayList<>();
+                        }
+                        listOfRecipes.add(recipe);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NamingException | SQLException ex) {
+            Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

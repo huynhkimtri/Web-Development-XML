@@ -6,8 +6,8 @@
 package com.cooking.dev.controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,15 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author huynh
  */
-public class FrontController extends HttpServlet {
-
-    private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String HOME_CONTROLLER = "HomeController";
-    private static final String CRAWL_RECIPE_CONTROLLER = "CrawlRecipeController";
-    private static final String RECIPE_DETAIL_CONTROLLER = "RecipeDetailController";
-    private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
-    private static final String RECIPE_SEARCH_BASIC_CONTROLLER = "RecipeSearchBasicController";
-    private static final String RECIPE_SEARCH_ADVANCE_CONTROLLER = "RecipeSearchAdvanceController";
+@WebServlet(name = "RecipeSearchAdvanceController", urlPatterns = {"/RecipeSearchAdvanceController"})
+public class RecipeSearchAdvanceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,42 +30,7 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-//        response.setContentType("text/html;charset=UTF-8");
-        String path = HOME_CONTROLLER;
-
-        try {
-            String action = request.getParameter("action");
-            if (action != null) {
-                switch (action) {
-                    case "admin":
-                        path = ADMIN_CONTROLLER;
-                        break;
-                    case "crawlRecipe":
-                        path = CRAWL_RECIPE_CONTROLLER;
-                        break;
-                    case "crawlIngredient":
-                        path = CRAWL_INGREDIENT_CONTROLLER;
-                        break;
-                    case "RecipeDetail":
-                        path = RECIPE_DETAIL_CONTROLLER;
-                        break;
-                    case "Search":
-                        path = RECIPE_SEARCH_BASIC_CONTROLLER;
-                        break;
-                    case "AdvanceSearch":
-                        path = RECIPE_SEARCH_ADVANCE_CONTROLLER;
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                // home 
-            }
-        } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request, response);
-        }
+        response.setContentType("text/html;charset=UTF-8");
 
     }
 

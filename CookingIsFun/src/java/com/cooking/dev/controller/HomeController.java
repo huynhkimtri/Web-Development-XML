@@ -8,7 +8,6 @@ package com.cooking.dev.controller;
 import com.cooking.dev.dao.RecipeDAO;
 import com.cooking.dev.jaxb.Recipe;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;

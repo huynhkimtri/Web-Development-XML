@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Mar 16, 2020, 1:23:06 AM
+    Document   : recipe-search
+    Created on : Mar 27, 2020, 3:20:48 AM
     Author     : huynh
 --%>
 
@@ -10,10 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Index - CookingIsFun</title>
-        <style>
-
-        </style>
+        <title>Search Recipe - CookingIsFun</title>
     </head>
     <body style="width: 1200px; margin: auto">
         <div>
@@ -39,23 +36,7 @@
             </div>
         </div>
         <div>
-            <h3>Công thức đa dạng</h3>
-            <p>Hỗ trợ tìm kiếm thông minh dựa trên các thành phần thực phẩm mong muốn. 
-                Những công thức dễ dàng nấu ăn với thời gian ngắn nhất.</p>
-                <c:url value="FrontController" var="recipeSearchAdvance">
-                    <c:param name="action" value="AdvanceSearch"/>
-                </c:url>
-            <a href="${recipeSearchAdvance}">Tìm kiếm Công thức</a>
-            <h3>Thực phẩm tươi sống</h3>
-            <p>Với nguồn thực phẩm, nguyên liệu đa dạng được tổng hợp và chọn lọc 
-                từ nhiều cửa hàng lớn nhỏ trên địa bàn thành phố.</p>
-                <c:url value="FrontController" var="ingredientSearchAdvance">
-                    <c:param name="action" value="Lookup"/>
-                </c:url>
-            <a href="${ingredientSearchAdvance}">Tìm kiếm nguyên liệu</a>
-        </div>
-        <div>
-            <c:forEach items="${requestScope.TOP_RECIPES}" var="recipe">
+            <c:forEach items="${requestScope.LIST_RECIPES}" var="recipe">
                 <table class="product-item">
                     <td class="image-product">
                         <img src="${recipe.image}" alt="${recipe.name}">
@@ -77,10 +58,5 @@
                 </table>
             </c:forEach>
         </div>
-        <footer style="text-align: center" class="footer py-4 bg-light">
-            <div class="container">
-                <p class="m-0 text-center">Copyright © CookingIsFun 2020 <a href="FrontController?action=admin">Admin</p>
-            </div>
-        </footer>
     </body>
 </html>

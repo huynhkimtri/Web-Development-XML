@@ -1,0 +1,261 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 27, 2020, 1:11:19 AM
+    Author     : huynh
+*/
+.slide-wrapper{
+    position: relative;
+    width: 100%;
+    height: 90vh;
+}
+
+.slide-wrapper .slide-buttons{
+    position: absolute;
+    bottom: 5px;
+    right: 50%;
+    margin-right: -31px; 
+    z-index: 3;
+}
+
+.slide-wrapper .slide-buttons .item-button {
+    display: inline-table;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    /* background-color: #919397; */
+    border: 1px solid #ffffff;
+}
+
+.slide-wrapper .slide-buttons .selection {
+    background-color: #ffffff!important;
+    border: 1px solid #919397!important;
+}
+
+.slide-show > div{
+    display: none;
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-show > div > img{
+    width: 100%;
+    height: 120vh;
+    margin-top: -15vh;
+}
+
+.slide-show > div > div{
+    position: absolute;
+    z-index: 2;
+}
+
+.slide-show > div .slide-cover1 img{
+    display: block;
+    height: 165vh;
+}
+
+.slide-show > div .slide-cover2 img{
+    display: block;
+    height: 120vh;
+}
+
+.slide-show > div .slide-cover3 img{
+    display: block;
+    height: 30vh;
+}
+
+.slide-show > div .content{
+    width: 60vh;
+    top: 30vh;
+    left: 7%;
+    z-index: 3;
+    color: #ffffff;
+
+}
+
+.animation-content{
+    animation: animeContent2 1s forwards;
+}
+
+.slide-show > div .content h1{
+    opacity: 0;
+    margin: 4vh 0;
+    font-size: 2.0625em; /*size/size body */
+    animation: animeContent 1s forwards 1s;
+}
+
+.slide-show > div .content span{
+    opacity: 0;
+    display: inline-table;
+    width: 3.75em;
+    border: 1px solid #ffffff;
+    animation: animeContent 1s forwards 1.33s;
+}
+
+.slide-show > div .content p {
+    opacity: 0;
+    margin: 4vh 0 7vh 0;
+    font-size: 0.8125em; /*size/size body */
+    animation: animeContent 1s forwards 1.66s;
+}
+
+.slide-show > div .content a {
+    opacity: 0;
+    padding: 8px 14px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffffff;
+    font-size: 0.7625em; /*size/size body */
+    animation: animeContent 1s forwards 2s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.slide-show > div .slide-cover1{
+    animation: anime1 1.5s forwards;
+}
+
+.slide-show > div .slide-cover2{
+    animation: anime1 1.5s forwards 0.5s;
+}
+
+.slide-show > div .slide-cover3{
+    animation: anime2 1.5s forwards;
+}
+/* ------------------------------------------- */
+.slide-show > div .cover1 img{
+    display: block;
+    height: 165vh;
+}
+
+.slide-show > div .cover2 img{
+    display: block;
+    height: 120vh;
+}
+
+.slide-show > div .cover3 img{
+    display: block;
+    height: 30vh;
+}
+
+.slide-show > div .cover1, .slide-show > div .cover2{
+    animation: anime3 1.5s forwards;
+}
+
+.slide-show > div .cover3{
+    animation: anime4 1.5s forwards;
+}
+
+
+@keyframes anime1 {
+    from {
+        bottom: -50%;
+        left: -50%;
+    }
+    to {
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@keyframes anime3 {
+    from {
+        bottom: 0;
+        left: 0;
+    }
+    to {
+        bottom: -50%;
+        left: -50%;
+    }
+}
+
+@keyframes anime2 {
+    from {
+        top: -15%;
+        right: -20%;
+    }
+    to {
+        top: 0;
+        right: 0;
+    }
+}
+
+@keyframes anime4 {
+    from {
+        top: 0;
+        right: 0;
+    }
+    to {
+        top: -15%;
+        right: -20%;
+    }
+}
+
+@keyframes animeContent{
+    from{
+        opacity: 0;
+        margin-left: -20%;
+    }
+    to{
+        opacity: 1;
+        margin-left: 0; 
+    }
+}
+
+@keyframes animeContent2{
+    from{
+        opacity: 1;
+        margin: 0;
+    }
+    to{
+        opacity: 0;
+        margin: 20% 0 0 -20%;
+    }
+}
+
+@media screen and (max-width: 735px){
+    .slide-wrapper{
+        height: 80vh;
+    }
+    .slide-show > div {
+        height: 80vh;
+
+    }
+    .slide-show > div > img{
+        height: 80vh;
+        margin-top: 0;
+    }
+    .slide-show > div .slide-cover1 img{
+        height: 87.5vh;
+    }
+
+    .slide-show > div .slide-cover2 img{
+        height: 65vh;
+    }
+
+    .slide-show > div .slide-cover3 img{
+        height: 15vh;
+    }
+    .slide-show > div .cover1 img{
+        height: 87.5vh;
+    }
+
+    .slide-show > div .cover2 img{
+        height: 65vh;
+    }
+
+    .slide-show > div .cover3 img{
+        display: block;
+        height: 15vh;
+    }
+    .slide-show > div .content{
+        width: 60%;
+        top: 20vh;
+    }
+}
