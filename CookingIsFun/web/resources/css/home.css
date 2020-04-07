@@ -1,0 +1,219 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 7, 2020, 8:36:19 PM
+    Author     : huynh
+*/
+
+#navbar {
+    width: 100%;
+    height: auto;
+    color: #fff;
+    position: relative;
+}
+.navbar {
+    min-height: 80px;
+    /*padding: 1.3rem 0;*/
+}
+.navbar-default {
+    background-color: #fff;
+}
+.navbar-brand {
+    color: #ff0018;
+}
+.main-banner {
+    padding: 12% 0 8% 0;
+    background-image: url(../images/main-banner.jpg);
+    background-size: cover !important;
+    background-position: center !important;
+    margin: 0;
+    position: relative;
+}
+.main-banner::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .5;
+}
+.main-banner .caption {
+    position: relative;
+}
+.main-banner h2 {
+    color: #fff;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 50px;
+    font-weight: 600;
+}
+.main-banner p {
+    margin-bottom: 40px;
+    color: #fff;
+    font-family: ABeeZee, sans-serif;
+    font-weight: 400;
+}
+p {
+    font-size: 16px;
+    line-height: 24px;
+}
+.main-banner .home-form-1 {
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px 10px rgba(224, 224, 224, 0.23);
+    margin-top: 40px;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+.main-banner .home-form-1 .field {
+    margin: 0;
+    padding: 0;
+}
+.main-banner .home-form-1 .input-group-addon {
+    background: #f7f7f7;
+    border: none;
+}
+.main-banner .input-group-addon i {
+    color: #ff0018 !important;
+    font-size: 18px;
+}
+.main-banner .home-form-1 .form-control {
+    height: 50px;
+    padding: 0;
+    font-weight: 300;
+    margin-left: 10px;
+    padding-left: 30px;
+}
+
+.main-banner .home-form-1 .form-control, .main-banner .form-group {
+    margin-bottom: 0;
+}
+.home-form-1 .btn {
+    border-radius: 0;
+    height: 50px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.home-form-1 .btn i {
+    font-size: 21px;
+    position: relative;
+    top: 1px;
+    padding-right: 3px;
+}
+.recipe-list-title {
+    position: relative;
+    font-size: 34px;
+    margin-bottom: 40px;
+    display: block;
+    text-align: center;
+    margin-top: 0;
+    font-weight: 600;
+    color: #686868;
+}
+.recipe-list-title small {
+    display: block;
+    font-size: 16px;
+    line-height: 30px;
+}
+.recipe-list-title:after {
+    content: '';
+    background: rgb(255, 192, 0);
+    height: 3px;
+    width: 100px;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+.recipe-box {
+    position: relative;
+    border-radius: 0px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+.recipe-box .recipe-img {
+    position: relative;
+}
+img {
+    vertical-align: middle;
+}
+.recipe-box .recipe-heading {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px 20px;
+    width: 100%;
+}
+.recipe-box .recipe-heading .recipe-header {
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    width: 100%;
+    position: relative;
+    height: auto;
+}
+.recipe-box .recipe-heading .recipe-title {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    height: auto;
+    line-height: 24px;
+    position: relative;
+    padding-bottom: 2px;
+}
+.recipe-box .recipe-heading .recipe-title a {
+    color: #222;
+    width: 100%;
+    text-decoration: none;
+}
+.recipe-box .recipe-heading .recipe-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.recipe-box .recipe-heading .recipe-details .prep-time {
+    padding-bottom: 5px;
+}
+.recipe-box .recipe-heading .recipe-details span {
+    display: block;
+    line-height: 23px;
+}
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.recipe-box:hover {
+    box-shadow: 0 0 0 1px rgba(255, 0, 24, 0.9), 0 1px 5px 0 rgba(255, 0, 24, 0.12);
+}
+.recipe-detail {
+    height: 30px;
+    width: auto;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0 16px;
+    float: right;
+    color: #fff;
+    background-color: #ff0018;
+}
+.recipe-list {
+    position: relative;
+    width: 100%;
+    padding: 60px 0;
+}

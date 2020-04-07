@@ -1,0 +1,236 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 7, 2020, 8:47:38 PM
+    Author     : huynh
+*/
+
+#header {
+    background-image: url(../images/slider.jpg);
+    width: 100%;
+    height: auto;
+    color: #fff;
+}
+
+#header.heading {
+    position: relative;
+    min-height: 200px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-position: 50% 50%;
+    background-size: cover !important;
+}
+
+#header.heading > * {
+    position: relative;
+    z-index: 2;
+}
+
+#header.heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#header.heading .page-title {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ddd;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#header.heading .breadcrumb {
+    padding: 8px 15px;
+    position: relative;
+    z-index: 2;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    margin-bottom: 0;
+    color: #dedede;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#header.heading .page-title h2 {
+    margin-bottom: 15px;
+    font-size: 43px;
+    line-height: 36px;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumb > li {
+    color: #dedede;
+    display: inline-block;
+}
+
+#header.heading .breadcrumb a {
+    color: #cecece;
+}
+
+.breadcrumb > li + li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+
+.sort .form-inline {
+    float: right;
+}
+.form-control {
+    border: solid 1px #e8e8e8;
+}
+#sort-form .form-control {
+    min-width: 100px;
+}
+.sort {
+    padding-bottom: 40px;
+}
+
+/* recipe-box */
+.recipe-box {
+    position: relative;
+    border-radius: 0px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.recipe-box-list {
+    display: flex;
+}
+
+.recipe-box-list .recipe-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.recipe-box-list .recipe-img {
+    width: 400px;
+    position: relative;
+}
+
+.recipe-box .recipe-heading {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.recipe-box .recipe-heading .recipe-header {
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    width: 100%;
+    position: relative;
+    height: auto;
+}
+.recipe-box .recipe-excerpt {
+    font-size: 18x;
+    color: #777;
+    padding-bottom: 10px;
+}
+.recipe-box .recipe-heading p {
+    font-size: 16px;
+    background-color: #F6F6F6;
+    padding: 2px 8px;
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.recipe-box .recipe-heading .recipe-header .recipe-title a {
+    color: #222;
+    width: 100%;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.recipe-box .recipe-heading p.text-light-yellow {
+    background-color: #f9f8e2;
+}
+
+.recipe-box .recipe-heading p.text-light-red {
+    background-color: #ffe9e9;
+}
+
+.col-md-12 .recipe-box .recipe-heading .recipe-details {
+    justify-content: inherit;
+}
+
+.recipe-box .recipe-heading .recipe-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.recipe-box:hover {
+    box-shadow: 0 0 0 1px rgba(255, 0, 24, 0.9), 0 1px 5px 0 rgba(255, 0, 24, 0.12);
+}
+
+.recipe-box .recipe-heading .recipe-details span {
+    display: block;
+    line-height: 23px;
+}
+
+/* sidebar */
+.sidebar {
+    margin-bottom: 20px;
+}
+.sidebar .widget {
+    margin-bottom: 20px; 
+    position: relative;
+    padding: 15px 25px;
+    background: #fff;
+    font-size: 15px;
+    border: 2px solid #eee;
+}
+
+.sidebar .widget:before, .sidebar .widget:after, .sidebar .widget-sidebar:before, .sidebar .widget-sidebar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.sidebar .widget .widget-header {
+    margin-bottom: 10px;
+    position: relative;
+    display: block;
+    padding: 10px;
+}
+sidebar .widget .widget-header h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+    background-repeat: repeat-x;
+    background-position: bottom center;
+    margin-top: 10px;
+}
+.sidebar .widget .field.col-md-3 {
+    width: 100%;
+    padding: 0;
+}
+
+label {
+    font-weight: normal;
+}

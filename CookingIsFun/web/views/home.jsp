@@ -11,13 +11,59 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Index - CookingIsFun</title>
-        <style>
-
-        </style>
+        <link href="resources/css/home.css" rel="stylesheet">
+        <%@include file="common/link.jsp" %>
     </head>
-    <body style="width: 1200px; margin: auto">
+    <body>
         <div>
-            <h1>CookingIsFun</h1>
+            <%@include file="common/header.jsp" %>
+            <%@include file="common/banner.jsp" %>
+            <div class="recipe-list">
+                <div class="container">
+                    <h2 class="recipe-list-title">Các công thức phổ biến nhất				
+                        <small>
+                            Hãy tìm hiểu các công thức nấu ăn phổ biến nhất của chúng tôi			
+                        </small>
+                    </h2>
+                    <div class="row">
+                        <c:forEach items="${requestScope.TOP_RECIPES}" var="recipe">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="recipe-box">
+                                    <div class="recipe-img">
+                                        <a href="#">
+                                            <img width="643" height="428" src="${recipe.image}" 
+                                                 class="img-responsive wp-post-image" alt="${recipe.name}">
+                                        </a>
+                                    </div>
+                                    <div class="recipe-heading">
+                                        <div class="recipe-header">
+                                            <h6 class="recipe-title">
+                                                <a href="#">
+                                                    ${recipe.name}</a>
+                                            </h6>
+                                            <p>${recipe.description}</p>
+                                        </div>
+                                        <div class="recipe-details">
+                                            <div class="prep-time">
+                                                <span> <i class="fa fa-user"></i> Khẩu phần: ${recipe.servings} người</span>
+                                                <span> <i class="fa fa-clock-o"></i> Chuẩn bị: 10 phút</span>
+                                                <span> <i class="fa fa-clock-o"></i> Thực hiện: 15 phút</span>
+                                            </div>
+                                            <div>
+                                                <c:url value="FrontController" var="detail">
+                                                    <c:param name="id" value="${recipe.id}"/>
+                                                    <c:param name="action" value="RecipeDetail"/>
+                                                </c:url>
+                                                <a class="recipe-detail" href="${detail}">Chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
             <div class="list-tag">
                 <ul class="wrap-list">
                     <c:url value="FrontController" var="repAdvance">
@@ -54,33 +100,6 @@
                 </c:url>
             <a href="${ingredientSearchAdvance}">Tìm kiếm nguyên liệu</a>
         </div>
-        <div>
-            <c:forEach items="${requestScope.TOP_RECIPES}" var="recipe">
-                <table class="product-item">
-                    <td class="image-product">
-                        <img src="${recipe.image}" alt="${recipe.name}">
-                    </td>
-                    <td class="content-product">
-                        <div class="content">
-                            <h2>${recipe.name}</h2>
-                            <h3>Khẩu phần: ${recipe.servings} người </h3>
-                            <p>${recipe.description}</p>
-                        </div>
-                        <div>
-                            <c:url value="FrontController" var="detail">
-                                <c:param name="id" value="${recipe.id}"/>
-                                <c:param name="action" value="RecipeDetail"/>
-                            </c:url>
-                            <a href="${detail}">Chi tiết</a>
-                        </div>
-                    </td>
-                </table>
-            </c:forEach>
-        </div>
-        <footer style="text-align: center" class="footer py-4 bg-light">
-            <div class="container">
-                <p class="m-0 text-center">Copyright © CookingIsFun 2020 <a href="FrontController?action=admin">Admin</p>
-            </div>
-        </footer>
+        <%@include file="common/footer.jsp" %>
     </body>
 </html>

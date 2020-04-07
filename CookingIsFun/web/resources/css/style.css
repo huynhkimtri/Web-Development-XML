@@ -7,3 +7,59 @@ and open the template in the editor.
     Created on : Mar 27, 2020, 1:41:14 AM
     Author     : huynh
 */
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+footer {
+    background-color: #222;
+    padding: 40px 0 0;
+}
+footer p {
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #ff0018!important;
+    border-color: #ff0018!important;
+}
+
+p {
+    font-size: 16px;
+    color: #727272;
+    line-height: 24px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#content, .recipe-list, .chefs_content, .restaurants_content {
+    position: relative;
+    width: 100%;
+    padding: 60px 0;
+}
+
+input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    color: #333;
+    background: #f3f3f3 !important;
+    box-shadow: 0 0 0 !important;
+    font-size: 16px !important;
+    min-height: 50px;
+    width: 100%;
+    border: solid 1px #e8e8e8;
+}
+.form-control {
+    border: solid 1px #e8e8e8;
+}
+.btn, .form-control {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
