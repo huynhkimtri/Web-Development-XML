@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Detail - CookingIsFun</title>
+        <title>Chi tiết món ăn - CookingIsFun</title>
         <%@include file="common/link.jsp" %>
         <link href="resources/css/recipe-detail.css" rel="stylesheet">
     </head>
@@ -26,7 +26,8 @@
                                 <h2>${recipe.name}</h2>                
                             </div>
                             <ol class="breadcrumb">
-                                <li><a href="#">Trang chủ</a></li>
+                                <li><a href=".">Trang chủ</a></li>
+                                <li>Công thức</li>
                                 <li>${recipe.name}</li>
                             </ol>
                         </div>
@@ -59,8 +60,8 @@
                                         <ul class="ingredients-list">
                                             <c:forEach items="${recipe.listIngredients.ingredient}" var="ing">
                                                 <c:url value="FrontController" var="ingredient_info">
-                                                    <c:param name="action" value="Lookup"/>
-                                                    <c:param name="txtSearch" value="${ing.name}"/>
+                                                    <c:param name="act" value="lookup"/>
+                                                    <c:param name="q" value="${ing.name}"/>
                                                 </c:url>
                                                 <li>
                                                     ${ing.quantity} ${ing.unit} <a class="ingredient" href="${ingredient_info}">${ing.name}</a>
@@ -78,7 +79,7 @@
                                                 </c:forEach>   
                                         </ol>
                                     </div>
-                                    <div class="print-cooking" onclick="prinPDFwithXHR()">
+                                    <div class="print-cooking" onclick="exportRecipeToPDF()">
                                         <a href="${recipe_info}">In công thức</a>
                                     </div>
                                 </div>
@@ -96,5 +97,24 @@
             <h1>Something wrong</h1>
         </c:if>
         <%@include file="common/footer.jsp" %>
+        <script type="text/javascript">
+            function exportRecipeToPDF() {
+                var result = document.getElementById('xhr-result');
+                result.innerHTML = 'Đang in công thức ...';
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        var res = xhr.responseText;
+                        result.innerHTML = 'Đã in xong!';
+                    }
+                };
+            <c:url value="FrontController" var="recipe_info">
+                <c:param name="action" value="print"/>
+                <c:param name="id" value="${recipe.id}"/>
+            </c:url>
+                xhr.open('GET', '${recipe_info}');
+                xhr.send();
+            }
+        </script>
     </body>
 </html>

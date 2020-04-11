@@ -5,9 +5,17 @@
  */
 package com.cooking.dev.controller;
 
+import com.cooking.dev.dao.IngredientDAO;
+import com.cooking.dev.jaxb.Ingredient;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,16 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author huynh
  */
-public class FrontController extends HttpServlet {
-
-    private static final String ADMIN_CONTROLLER = "AdminController";
-    private static final String HOME_CONTROLLER = "HomeController";
-    private static final String CRAWL_RECIPE_CONTROLLER = "CrawlRecipeController";
-    private static final String RECIPE_DETAIL_CONTROLLER = "RecipeDetailController";
-    private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
-    private static final String RECIPE_SEARCH_BASIC_CONTROLLER = "RecipeSearchBasicController";
-    private static final String RECIPE_SEARCH_ADVANCE_CONTROLLER = "RecipeSearchAdvanceController";
-    private static final String INGREDIENT_VIEWER = "IngredientInfoController";
+@WebServlet(name = "IngredientInfoController", urlPatterns = {"/IngredientInfoController"})
+public class IngredientInfoController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,46 +38,27 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-//        response.setContentType("text/html;charset=UTF-8");
-        String path = HOME_CONTROLLER;
-
+        response.setContentType("text/html;charset=UTF-8");
+        String path = "views/ingredient.jsp";
+        IngredientDAO dao = new IngredientDAO();
+        String name = request.getParameter("q");
+        int index = name.indexOf(' ');
+        if (index > 0) {
+            name = name.substring(0, index);
+        }
         try {
-            String action = request.getParameter("act");
-            if (action != null) {
-                switch (action) {
-                    case "admin":
-                        path = ADMIN_CONTROLLER;
-                        break;
-                    case "crawlRecipe":
-                        path = CRAWL_RECIPE_CONTROLLER;
-                        break;
-                    case "crawlIngredient":
-                        path = CRAWL_INGREDIENT_CONTROLLER;
-                        break;
-                    case "recipeDetail":
-                        path = RECIPE_DETAIL_CONTROLLER;
-                        break;
-                    case "search":
-                        path = RECIPE_SEARCH_BASIC_CONTROLLER;
-                        break;
-                    case "AdvanceSearch":
-                        path = RECIPE_SEARCH_ADVANCE_CONTROLLER;
-                        break;
-                    case "lookup":
-                        path = INGREDIENT_VIEWER;
-                        break;
-                    default:
-                        break;
-                }
+            if (name != null) {
+                dao.findByLikeName(name);
             } else {
-                // home 
+                dao.findTop(9);
             }
-        } finally {
+            List<Ingredient> ingredients = dao.getListOfIngredients();
+            request.setAttribute("LIST_INGREDIENTS", ingredients);
             RequestDispatcher dispatcher = request.getRequestDispatcher(path);
             dispatcher.forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientInfoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

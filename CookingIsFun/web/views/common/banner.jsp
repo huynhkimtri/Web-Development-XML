@@ -10,9 +10,10 @@
         <div class="col-md-10 offset-md-1">
             <div id="main_banner_widget-1" class="widget widget_main_banner_widget">
                 <div class="caption text-center cl-white">
-                    <h2>Với hơn 10.000 công thức nấu ăn</h2>
-                    <p>Tìm và chia sẻ cảm hứng nấu ăn hàng ngày trên <strong>Cooking is Fun</strong>. 
-                        Khám phá công thức nấu ăn, đầu bếp, video và cách làm dựa trên thực phẩm bạn yêu thích và những người bạn bạn theo dõi.
+                    <h2>Với hơn 3.000 công thức nấu ăn</h2>
+                    <p>Khám phá công thức nấu ăn, đầu bếp, video và cách làm dựa trên thực phẩm bạn yêu thích trên khắp mọi miền tổ quốc.<br>
+                        Từ những món ăn dân dã dễ làm đến các món ăn đặc sản cầu kỳ, tất cả đều có trên <strong>Cooking is Fun</strong>.<br>
+                        Đừng bỏ lỡ, hãy tìm kiếm ngay!
                     </p>
                 </div>
             </div>
@@ -26,7 +27,7 @@
                                     <div class="field col-md-9">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="text" name="keySearch"
+                                                <input type="text" name="q"
                                                        class="form-control"
                                                        placeholder="Tìm kiếm công thức nấu ăn theo thành phần, món ăn hoặc từ khóa" 
                                                        value="">
@@ -35,7 +36,7 @@
                                     </div>
                                     <div class="field col-md-3">
                                         <div class="form-group">
-                                            <button class="btn btn-success btn-block" name="action" type="submit" value="Search">
+                                            <button class="btn btn-success btn-block" name="act" type="submit" value="search">
                                                 <i class="fa fa-search"></i>
                                                 Tìm kiếm
                                             </button>

@@ -41,7 +41,7 @@ public class HomeController extends HttpServlet {
         try {
             response.setContentType("text/html;charset=UTF-8");
             RecipeDAO dao = new RecipeDAO();
-            dao.findTop(10);
+            dao.findTop(9);
             List<Recipe> listOfRecipes = dao.getListOfRecipes();
             request.setAttribute("TOP_RECIPES", listOfRecipes);
         } catch (SQLException ex) {

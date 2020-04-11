@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Index - CookingIsFun</title>
+        <title>Trang chủ - CookingIsFun</title>
         <link href="resources/css/home.css" rel="stylesheet">
         <%@include file="common/link.jsp" %>
     </head>
@@ -38,7 +38,7 @@
                                     <div class="recipe-heading">
                                         <div class="recipe-header">
                                             <h6 class="recipe-title">
-                                                <a href="#">
+                                                <a href="${detail}">
                                                     ${recipe.name}</a>
                                             </h6>
                                             <p>${recipe.description}</p>
@@ -46,13 +46,13 @@
                                         <div class="recipe-details">
                                             <div class="prep-time">
                                                 <span> <i class="fa fa-user"></i> Khẩu phần: ${recipe.servings} người</span>
-                                                <span> <i class="fa fa-clock-o"></i> Chuẩn bị: 10 phút</span>
-                                                <span> <i class="fa fa-clock-o"></i> Thực hiện: 15 phút</span>
+<!--                                                <span> <i class="fa fa-clock-o"></i> Chuẩn bị: 10 phút</span>
+                                                <span> <i class="fa fa-clock-o"></i> Thực hiện: 15 phút</span>-->
                                             </div>
                                             <div>
                                                 <c:url value="FrontController" var="detail">
                                                     <c:param name="id" value="${recipe.id}"/>
-                                                    <c:param name="action" value="RecipeDetail"/>
+                                                    <c:param name="act" value="recipeDetail"/>
                                                 </c:url>
                                                 <a class="recipe-detail" href="${detail}">Chi tiết</a>
                                             </div>

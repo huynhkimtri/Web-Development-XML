@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Search Recipe - CookingIsFun</title>
+        <title>Tìm kiếm công thức - CookingIsFun</title>
         <%@include file="common/link.jsp" %>
         <link href="resources/css/recipe-search.css" rel="stylesheet">
     </head>
@@ -38,9 +38,6 @@
                         <div class="row sort">
                             <div class="col-md-8 col-sm-8 col-xs-9">
                                 <form class="form-inline" method="get" action="?" id="sort-form">
-                                    <input type="hidden" name="filter-page_type" value="RECIPE">
-                                    <input type="hidden" name="filter-recipe-title" value="a">
-                                    <input type="hidden" name="filter-recipe-type" value="">
                                     <span>Sort by : </span>
                                     <div class="form-group">
                                         <label class="sr-only" for="sortby">Sort by:&nbsp;</label>
@@ -70,7 +67,7 @@
                                         <div class="recipe-box-list">
                                             <c:url value="FrontController" var="detail">
                                                 <c:param name="id" value="${recipe.id}"/>
-                                                <c:param name="action" value="RecipeDetail"/>
+                                                <c:param name="act" value="recipeDetail"/>
                                             </c:url>
                                             <div class="recipe-img">
                                                 <a href="${detail}">
@@ -84,7 +81,6 @@
                                                     </h6>
                                                 </div>
                                                 <div class="recipe-excerpt">${recipe.description}</div>
-                                                <p class="text-light-red">Thịt bò</p>
                                                 <div class="recipe-details">
                                                     <div class="prep-time">
                                                         <span><i class="fa fa-user"></i>&nbsp;&nbsp;Khẩu phần: ${recipe.servings} người</span>
@@ -106,10 +102,10 @@
             <div class="list-tag">
                 <ul class="wrap-list">
                     <c:url value="FrontController" var="repAdvance">
-                        <c:param name="action" value="AdvanceSearch"/>
+                        <c:param name="act" value="AdvanceSearch"/>
                     </c:url>
                     <c:url value="FrontController" var="ingAdvance">
-                        <c:param name="action" value="IngIndex"/>
+                        <c:param name="act" value="IngIndex"/>
                     </c:url>
                     <li class="item-list"><a href="${repAdvance}"><span>Recipe</span></a></li>
                     <li class="item-list"><a href="${ingAdvance}"><span>Ingredient</span></a></li>
@@ -118,8 +114,8 @@
 
             <div class="search-right">
                 <form action="FrontController" method="GET" >
-                    <input type="text" name="keySearch" placeholder="Lẩu, Bún, Cơm,..."/>
-                    <button type="submit" value="Search" name="action">Tìm kiếm</button>
+                    <input type="text" name="q" placeholder="Lẩu, Bún, Cơm,..."/>
+                    <button type="submit" value="search" name="act">Tìm kiếm</button>
                 </form>
             </div>
         </div>
