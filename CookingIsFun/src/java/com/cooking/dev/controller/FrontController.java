@@ -25,7 +25,9 @@ public class FrontController extends HttpServlet {
     private static final String CRAWL_INGREDIENT_CONTROLLER = "CrawlIngredientController";
     private static final String RECIPE_SEARCH_BASIC_CONTROLLER = "RecipeSearchBasicController";
     private static final String RECIPE_SEARCH_ADVANCE_CONTROLLER = "RecipeSearchAdvanceController";
+    private static final String INGREDIENT_SEARCH_CONTROLLER = "IngredientSearchController";
     private static final String INGREDIENT_VIEWER = "IngredientInfoController";
+    private static final String INGREDINET_SEARCH_PAGE = "views/ingredient-search.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +49,7 @@ public class FrontController extends HttpServlet {
             if (action != null) {
                 switch (action) {
                     case "admin":
-                        path = ADMIN_CONTROLLER;
+                        path = ADMIN_CONTROLLER;    
                         break;
                     case "crawlRecipe":
                         path = CRAWL_RECIPE_CONTROLLER;
@@ -66,6 +68,12 @@ public class FrontController extends HttpServlet {
                         break;
                     case "lookup":
                         path = INGREDIENT_VIEWER;
+                        break;
+                    case "ingPage":
+                        path = INGREDINET_SEARCH_PAGE;
+                        break;
+                    case "ingSearch":
+                        path = INGREDIENT_SEARCH_CONTROLLER;
                         break;
                     default:
                         break;

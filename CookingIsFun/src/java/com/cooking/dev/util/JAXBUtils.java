@@ -20,6 +20,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import com.sun.tools.xjc.api.ErrorListener;
 import com.sun.tools.xjc.api.S2JJAXBModel;
+import java.io.OutputStream;
 import javax.xml.XMLConstants;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Schema;
@@ -50,7 +51,27 @@ public class JAXBUtils {
             marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            marshaller.marshal(marshaller, writer);
+            marshaller.marshal(t, writer);
+        } catch (JAXBException ex) {
+            Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     *
+     * @param <T>
+     * @param t
+     * @param stream
+     */
+    public static <T> void marshallOutputStream(T t, OutputStream stream) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(t.getClass());
+            Marshaller marshaller = context.createMarshaller();
+
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            marshaller.marshal(t, stream);
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,7 +113,7 @@ public class JAXBUtils {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             StringWriter writer = new StringWriter();
-            marshaller.marshal(marshaller, writer);
+            marshaller.marshal(t, writer);
 
             result = writer.toString().trim();
         } catch (JAXBException ex) {

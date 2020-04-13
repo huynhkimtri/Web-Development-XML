@@ -38,7 +38,7 @@ public class RecipeSearchBasicController extends HttpServlet {
         String keySearch = request.getParameter("q");
         String url = "views/recipe-search.jsp";
         RecipeDAO dao = new RecipeDAO();
-        dao.findByName(keySearch);
+        dao.findByNameUsingProcedure(keySearch);
         List<Recipe> listOfRecipes = dao.getListOfRecipes();
         request.setAttribute("LIST_RECIPES", listOfRecipes);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);

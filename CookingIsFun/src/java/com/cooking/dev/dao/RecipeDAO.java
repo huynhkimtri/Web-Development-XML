@@ -14,8 +14,8 @@ import com.cooking.dev.util.DBUtils;
 import com.cooking.dev.util.UnicodeUtils;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,68 +30,6 @@ import javax.naming.NamingException;
  */
 public class RecipeDAO implements Serializable {
 
-    private static final String SQL_SAVE
-            = "INSERT INTO [dbo].[tblRecipe]([Id],[Name],[Link])\n"
-            + "VALUES(?, ?, ?)";
-    private static final String SQL_SAVE_NOT_EXISTS
-            = "IF NOT EXISTS (SELECT [Name] FROM [dbo].[tblRecipe] WHERE [Id] = ?)\n"
-            + "BEGIN\n"
-            + "INSERT INTO [dbo].[tblRecipe]([Id],[Name],[Image],[Link],[Description],[Servings],[PrepTime],[CookTime])\n"
-            + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)\n"
-            + "END";
-    private static final String SQL_SAVE_INSTRUCTION
-            = "INSERT INTO [dbo].[tblListOfInstruction]([RecipeId],[Step],[Detail])\n"
-            + "VALUES(?, ?, ?)";
-    private static final String SQL_SAVE_INGREDIENT
-            = "INSERT INTO [dbo].[tblListOfIngredient]([RecipeId],[Name],[Unit],[Quantity])\n"
-            + "VALUES(?, ?, ?, ?)";
-    private static final String SQL_SELECT_TOP
-            = "SELECT TOP (?) [Id]\n"
-            + "      ,[Name]\n"
-            + "      ,[Image]\n"
-            + "      ,[Link]\n"
-            + "      ,[Description]\n"
-            + "      ,[Servings]\n"
-            + "      ,[PrepTime]\n"
-            + "      ,[CookTime]\n"
-            + "  FROM [dbo].[tblRecipe]"
-            + "ORDER BY [Id] DESC";
-    private static final String SQL_FIND_BY_ID
-            = "SELECT [Name]\n"
-            + "      ,[Image]\n"
-            + "      ,[Link]\n"
-            + "      ,[Description]\n"
-            + "      ,[Servings]\n"
-            + "      ,[PrepTime]\n"
-            + "      ,[CookTime]\n"
-            + "FROM [dbo].[tblRecipe]"
-            + "WHERE [Id] = ?";
-    private static final String SQL_FIND_INSTRUCTIONS
-            = "SELECT [Id]\n"
-            + "      ,[Step]\n"
-            + "      ,[Detail]\n"
-            + "FROM [dbo].[tblListOfInstruction]\n"
-            + "WHERE [RecipeId] = ?";
-    private static final String SQL_FIND_INGREDIENTS
-            = "SELECT [Id]\n"
-            + "      ,[Name]\n"
-            + "      ,[Unit]\n"
-            + "      ,[Quantity]\n"
-            + "FROM [dbo].[tblListOfIngredient]\n"
-            + "WHERE [RecipeId] = ?";
-    private static final String SQL_FIND_LIKE_NAME
-            = "SELECT TOP (1000) [Id]\n"
-            + "      ,[Name]\n"
-            + "      ,[Image]\n"
-            + "      ,[Link]\n"
-            + "      ,[Description]\n"
-            + "      ,[Servings]\n"
-            + "      ,[PrepTime]\n"
-            + "      ,[CookTime]\n"
-            + "  FROM [CookingIsFun].[dbo].[tblRecipe]\n"
-            + "  WHERE [Name] LIKE ?\n"
-            + "  ORDER BY [Id] DESC";
-
     private List<Recipe> listOfRecipes;
 
     public List<Recipe> getListOfRecipes() {
@@ -101,66 +39,70 @@ public class RecipeDAO implements Serializable {
     /**
      * Sets the designated parameter to the given Java value.
      *
-     * @param ps The <code>PreparedStatement</code> object
-     * @param obj The <code>Recipe</code> object
+     * @param statement The <code>PreparedStatement</code> object
+     * @param recipe The <code>Recipe</code> object
      * @throws SQLException
      */
-    private static void setDesignatedParams(PreparedStatement ps, Recipe obj)
+    private static void setDesignatedParams(CallableStatement statement, Recipe recipe)
             throws SQLException {
-        ps.setInt(1, obj.getId().intValue());
-        ps.setInt(2, obj.getId().intValue());
-        ps.setString(3, UnicodeUtils.encode(obj.getName().trim()));
-        ps.setString(4, obj.getImage().trim());
-        ps.setString(5, obj.getLink().trim());
-        ps.setString(6, UnicodeUtils.encode(obj.getDescription().trim()));
-        ps.setString(7, obj.getServings());
-        ps.setInt(8, obj.getPrepTime().intValue());
-        ps.setInt(9, obj.getCookTime().intValue());
+        statement.setInt(1, recipe.getId().intValue());
+        statement.setString(2, UnicodeUtils.encode(recipe.getName().trim()));
+        statement.setString(3, recipe.getImage().trim());
+        statement.setString(4, recipe.getLink().trim());
+        statement.setString(5, UnicodeUtils.encode(recipe.getDescription().trim()));
+        statement.setString(6, recipe.getServings());
+        statement.setInt(7, recipe.getPrepTime().intValue());
+        statement.setInt(8, recipe.getCookTime().intValue());
     }
 
     /**
+     * save a recipe using SQL Stored Procedure
      *
-     * @param r
+     * @param recipe
      * @return
      */
-    public boolean save(Recipe r) {
+    public boolean save(Recipe recipe) {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_SAVE_NOT_EXISTS)) {
+            try (CallableStatement cs
+                    = con.prepareCall("{call stpSaveRecipe(?,?,?,?,?,?,?,?)}")) {
                 con.setAutoCommit(false);
 
-                ps.setInt(1, r.getId().intValue());
-                ps.setInt(2, r.getId().intValue());
-                ps.setString(3, UnicodeUtils.encode(r.getName().trim()));
-                ps.setString(4, r.getImage().trim());
-                ps.setString(5, r.getLink().trim());
-                ps.setString(6, UnicodeUtils.encode(r.getDescription().trim()));
-                ps.setString(7, r.getServings());
-                ps.setInt(8, r.getPrepTime().intValue());
-                ps.setInt(9, r.getCookTime().intValue());
+                cs.setInt(1, recipe.getId().intValue());
+                cs.setString(2, UnicodeUtils.encode(recipe.getName().trim()));
+                cs.setString(3, recipe.getImage().trim());
+                cs.setString(4, recipe.getLink().trim());
+                cs.setString(5, UnicodeUtils.encode(recipe.getDescription().trim()));
+                cs.setString(6, recipe.getServings());
+                cs.setInt(7, recipe.getPrepTime().intValue());
+                cs.setInt(8, recipe.getCookTime().intValue());
 
-                int row = ps.executeUpdate();
+                int row = cs.executeUpdate();
                 boolean inserted = false;
                 if (row > 0) {
-                    int recId = r.getId().intValue();
+                    int recId = recipe.getId().intValue();
 
-                    List<InstructionItem> listOfInstruction = r.getListIntructions().getInstruction();
+                    List<InstructionItem> listOfInstruction
+                            = recipe.getListIntructions().getInstruction();
                     for (InstructionItem item : listOfInstruction) {
-                        try (PreparedStatement pstm = con.prepareStatement(SQL_SAVE_INSTRUCTION)) {
-                            pstm.setInt(1, recId);
-                            pstm.setInt(2, item.getStep().intValue());
-                            pstm.setString(3, UnicodeUtils.encode(item.getDetail()).trim());
-                            inserted = pstm.executeUpdate() > 0;
+                        try (CallableStatement stm
+                                = con.prepareCall("{call stpSaveInstructionItem(?,?,?)}")) {
+                            stm.setInt(1, recId);
+                            stm.setInt(2, item.getStep().intValue());
+                            stm.setString(3, UnicodeUtils.encode(item.getDetail()).trim());
+                            inserted = stm.executeUpdate() > 0;
                         }
                     }
 
-                    List<IngredientItem> listOfIngredient = r.getListIngredients().getIngredient();
+                    List<IngredientItem> listOfIngredient
+                            = recipe.getListIngredients().getIngredient();
                     for (IngredientItem item : listOfIngredient) {
-                        try (PreparedStatement pstm = con.prepareStatement(SQL_SAVE_INGREDIENT)) {
-                            pstm.setInt(1, recId);
-                            pstm.setString(2, UnicodeUtils.encode(item.getName().trim()));
-                            pstm.setString(3, UnicodeUtils.encode(item.getUnit().trim()));
-                            pstm.setString(4, item.getQuantity());
-                            inserted = pstm.executeUpdate() > 0;
+                        try (CallableStatement stm
+                                = con.prepareCall("{call stpSaveIngredientItem(?,?,?,?)}")) {
+                            stm.setInt(1, recId);
+                            stm.setString(2, UnicodeUtils.encode(item.getName().trim()));
+                            stm.setString(3, UnicodeUtils.encode(item.getUnit().trim()));
+                            stm.setString(4, item.getQuantity());
+                            inserted = stm.executeUpdate() > 0;
                         }
                     }
                 }
@@ -174,6 +116,7 @@ public class RecipeDAO implements Serializable {
     }
 
     /**
+     * Save recipe given a list of recipes using SQL Stored Procudure
      *
      * @param list
      * @return
@@ -181,12 +124,13 @@ public class RecipeDAO implements Serializable {
     public boolean save(List<Recipe> list) {
         try (Connection con = DBUtils.getConnection()) {
             int results;
-            try (PreparedStatement ps = con.prepareStatement(SQL_SAVE_NOT_EXISTS)) {
+            try (CallableStatement cs
+                    = con.prepareCall("{call stpSaveRecipe(?,?,?,?,?,?,?,?)}")) {
                 con.setAutoCommit(false);
                 for (Recipe r : list) {
-                    setDesignatedParams(ps, r);
+                    setDesignatedParams(cs, r);
                 }
-                results = ps.executeBatch().length;
+                results = cs.executeBatch().length;
                 con.commit();
             }
             return results > 0;
@@ -197,15 +141,15 @@ public class RecipeDAO implements Serializable {
     }
 
     /**
+     * Get top recipes using SQL Stored Procedure
      *
      * @param topNum
-     * @throws SQLException
      */
-    public void findTop(int topNum) throws SQLException {
+    public void findTopUsingProcedure(int topNum) {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_SELECT_TOP)) {
-                ps.setInt(1, topNum);
-                try (ResultSet rs = ps.executeQuery()) {
+            try (CallableStatement cs = con.prepareCall("{call stpGetTopRecipe (?)}")) {
+                cs.setInt(1, topNum);
+                try (ResultSet rs = cs.executeQuery()) {
                     while (rs.next()) {
                         Recipe recipe = new Recipe();
                         recipe.setId(BigInteger.valueOf(rs.getInt("Id")));
@@ -225,27 +169,27 @@ public class RecipeDAO implements Serializable {
             } catch (SQLException ex) {
                 Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (NamingException ex) {
+        } catch (NamingException | SQLException ex) {
             Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
+     * Get recipe by id using SQL Stored Procedure
      *
      * @param id
-     * @return
-     * @throws SQLException
+     * @return Recipe
      */
-    public Recipe findById(int id) throws SQLException {
+    public Recipe findByIdUsingProcedure(int id) {
         Recipe recipe = null;
         InstructionItem instruction;
         IngredientItem ingredient;
         ListIntructions instructions;
         ListIngredients ingredients;
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_FIND_BY_ID)) {
-                ps.setInt(1, id);
-                try (ResultSet rs = ps.executeQuery()) {
+            try (CallableStatement cs = con.prepareCall("{call stpGetRecipeById(?)}")) {
+                cs.setInt(1, id);
+                try (ResultSet rs = cs.executeQuery()) {
                     if (rs.next()) {
                         recipe = new Recipe();
                         recipe.setId(BigInteger.valueOf(id));
@@ -262,10 +206,11 @@ public class RecipeDAO implements Serializable {
                 Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (recipe != null) {
-                try (PreparedStatement ps = con.prepareStatement(SQL_FIND_INSTRUCTIONS)) {
-                    ps.setInt(1, id);
+                try (CallableStatement cs
+                        = con.prepareCall("{call stpGetInstructionsByRecipeId(?)}")) {
+                    cs.setInt(1, id);
                     instructions = new ListIntructions();
-                    try (ResultSet rs = ps.executeQuery()) {
+                    try (ResultSet rs = cs.executeQuery()) {
                         while (rs.next()) {
                             instruction = new InstructionItem();
                             instruction.setStep(BigInteger.valueOf(rs.getInt("Step")));
@@ -274,11 +219,14 @@ public class RecipeDAO implements Serializable {
                         }
                         recipe.setListIntructions(instructions);
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                try (PreparedStatement ps = con.prepareStatement(SQL_FIND_INGREDIENTS)) {
-                    ps.setInt(1, id);
+                try (CallableStatement cs
+                        = con.prepareCall("{call stpGetIngredientsByRecipeId(?)}")) {
+                    cs.setInt(1, id);
                     ingredients = new ListIngredients();
-                    try (ResultSet rs = ps.executeQuery()) {
+                    try (ResultSet rs = cs.executeQuery()) {
                         while (rs.next()) {
                             ingredient = new IngredientItem();
                             ingredient.setName(rs.getString("Name"));
@@ -288,24 +236,28 @@ public class RecipeDAO implements Serializable {
                         }
                         recipe.setListIngredients(ingredients);
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 return recipe;
             }
-        } catch (NamingException ex) {
+        } catch (NamingException | SQLException ex) {
             Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     /**
+     * Get recipes by name contains likeName using SQL Stored Procedure
      *
      * @param likeName
      */
-    public void findByName(String likeName) {
+    public void findByNameUsingProcedure(String likeName) {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_FIND_LIKE_NAME)) {
-                ps.setNString(1, '%' + likeName + '%');
-                try (ResultSet rs = ps.executeQuery()) {
+            try (CallableStatement cs
+                    = con.prepareCall("{call stpGetRecipeByLikeName(?)}")) {
+                cs.setNString(1, likeName);
+                try (ResultSet rs = cs.executeQuery()) {
                     while (rs.next()) {
                         Recipe recipe = new Recipe();
                         recipe.setId(BigInteger.valueOf(rs.getInt("Id")));

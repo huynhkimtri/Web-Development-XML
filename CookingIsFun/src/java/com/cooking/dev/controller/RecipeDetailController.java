@@ -37,19 +37,14 @@ public class RecipeDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "views/recipe-detail.jsp";
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            String idStr = request.getParameter("id");
-            int id = Integer.parseInt(idStr);
-            RecipeDAO dao = new RecipeDAO();
-            Recipe recipe = dao.findById(id);
-            request.setAttribute("RECIPE", recipe);
-        } catch (SQLException ex) {
-            Logger.getLogger(RecipeDetailController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-            dispatcher.forward(request, response);
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        String idStr = request.getParameter("id");
+        int id = Integer.parseInt(idStr);
+        RecipeDAO dao = new RecipeDAO();
+        Recipe recipe = dao.findByIdUsingProcedure(id);
+        request.setAttribute("RECIPE", recipe);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

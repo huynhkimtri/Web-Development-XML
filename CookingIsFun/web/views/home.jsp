@@ -27,6 +27,10 @@
                     </h2>
                     <div class="row">
                         <c:forEach items="${requestScope.TOP_RECIPES}" var="recipe">
+                            <c:url value="FrontController" var="detail">
+                                <c:param name="id" value="${recipe.id}"/>
+                                <c:param name="act" value="recipeDetail"/>
+                            </c:url>
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="recipe-box">
                                     <div class="recipe-img">
@@ -45,15 +49,11 @@
                                         </div>
                                         <div class="recipe-details">
                                             <div class="prep-time">
-                                                <span> <i class="fa fa-user"></i> Khẩu phần: ${recipe.servings} người</span>
-<!--                                                <span> <i class="fa fa-clock-o"></i> Chuẩn bị: 10 phút</span>
-                                                <span> <i class="fa fa-clock-o"></i> Thực hiện: 15 phút</span>-->
+                                                <span> <i class="fa fa-user"></i> 
+                                                    Khẩu phần: ${recipe.servings} người
+                                                </span>
                                             </div>
                                             <div>
-                                                <c:url value="FrontController" var="detail">
-                                                    <c:param name="id" value="${recipe.id}"/>
-                                                    <c:param name="act" value="recipeDetail"/>
-                                                </c:url>
                                                 <a class="recipe-detail" href="${detail}">Chi tiết</a>
                                             </div>
                                         </div>

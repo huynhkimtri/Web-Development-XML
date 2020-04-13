@@ -5,14 +5,12 @@
  */
 package com.cooking.dev.controller;
 
-import com.cooking.dev.dao.RecipeDAO;
-import com.cooking.dev.jaxb.Recipe;
+import com.cooking.dev.dao.IngredientDAO;
+import com.cooking.dev.jaxb.Ingredient;
+import com.cooking.dev.jaxb.Ingredients;
+import com.cooking.dev.util.JAXBUtils;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author huynh
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "IngredientSearchController", urlPatterns = {"/IngredientSearchController"})
+public class IngredientSearchController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,14 +35,15 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "views/home.jsp";
         response.setContentType("text/html;charset=UTF-8");
-        RecipeDAO dao = new RecipeDAO();
-        dao.findTopUsingProcedure(15);
-        List<Recipe> listOfRecipes = dao.getListOfRecipes();
-        request.setAttribute("TOP_RECIPES", listOfRecipes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        String keySearch = request.getParameter("q");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        IngredientDAO dao = new IngredientDAO();
+        dao.findByLikeName(keySearch, page, size);
+        Ingredients ingredients = new Ingredients();
+        ingredients.setIngredient(dao.getListOfIngredients());
+        JAXBUtils.marshallOutputStream(ingredients, response.getOutputStream());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -9,6 +9,7 @@ import com.cooking.dev.jaxb.Ingredient;
 import com.cooking.dev.util.DBUtils;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,33 +26,6 @@ import javax.naming.NamingException;
  */
 public class IngredientDAO implements Serializable {
 
-    private static final String SQL_SAVE_NOT_EXISTS
-            = "IF NOT EXISTS (SELECT [Name] FROM [dbo].[tblIngredient] WHERE [Id] = ?)\n"
-            + "BEGIN\n"
-            + "INSERT INTO [dbo].[tblIngredient]([Id],[Name],[Image],[Link],[Description],[Price])\n"
-            + "VALUES(?, ?, ?, ?, ?, ?)\n"
-            + "END";
-    private static final String SQL_SELECT_TOP
-            = "SELECT TOP (?) [Id]\n"
-            + "      ,[Name]\n"
-            + "      ,[Image]\n"
-            + "      ,[Link]\n"
-            + "      ,[Description]\n"
-            + "      ,[Price]\n"
-            + "  FROM [dbo].[tblIngredient]"
-            + "ORDER BY [Id] DESC";
-
-    private static final String SQL_FIND_LIKE_NAME
-            = "SELECT TOP (10) [Id]\n"
-            + "      ,[Name]\n"
-            + "      ,[Image]\n"
-            + "      ,[Link]\n"
-            + "      ,[Description]\n"
-            + "      ,[Price]\n"
-            + "  FROM [dbo].[tblIngredient]\n"
-            + "  WHERE [Name] LIKE ?\n"
-            + "  ORDER BY [Id] DESC";
-
     private List<Ingredient> listOfIngredients;
 
     public List<Ingredient> getListOfIngredients() {
@@ -59,21 +33,21 @@ public class IngredientDAO implements Serializable {
     }
 
     /**
+     * Save an ingredient
      *
      * @param ingredient
      * @return
      */
     public boolean save(Ingredient ingredient) {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_SAVE_NOT_EXISTS)) {
-                ps.setInt(1, ingredient.getId().intValue());
-                ps.setInt(2, ingredient.getId().intValue());
-                ps.setString(3, ingredient.getName());
-                ps.setString(4, ingredient.getImage());
-                ps.setString(5, ingredient.getLink());
-                ps.setString(6, ingredient.getDescription());
-                ps.setInt(7, ingredient.getPrice());
-                return ps.executeUpdate() > 0;
+            try (CallableStatement cs = con.prepareCall("{call stpSaveIngredient(?,?,?,?,?,?)}")) {
+                cs.setInt(1, ingredient.getId().intValue());
+                cs.setString(2, ingredient.getName());
+                cs.setString(3, ingredient.getImage());
+                cs.setString(4, ingredient.getLink());
+                cs.setString(5, ingredient.getDescription());
+                cs.setInt(6, ingredient.getPrice());
+                return cs.executeUpdate() > 0;
             }
         } catch (NamingException | SQLException ex) {
             Logger.getLogger(IngredientDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,15 +56,16 @@ public class IngredientDAO implements Serializable {
     }
 
     /**
+     * Get top ingredients, descending order by id
      *
      * @param topNum
      * @throws SQLException
      */
     public void findTop(int topNum) throws SQLException {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_SELECT_TOP)) {
-                ps.setInt(1, topNum);
-                try (ResultSet rs = ps.executeQuery()) {
+            try (CallableStatement cs = con.prepareCall("{call stpGetTopIngredient(?)")) {
+                cs.setInt(1, topNum);
+                try (ResultSet rs = cs.executeQuery()) {
                     while (rs.next()) {
                         Ingredient ingredient = new Ingredient();
                         ingredient.setId(BigInteger.valueOf(rs.getInt("Id")));
@@ -114,15 +89,16 @@ public class IngredientDAO implements Serializable {
     }
 
     /**
+     * Get ingredients by name contains likeName using SQL Stored Procedure
      *
      * @param likeName
-     * @throws SQLException
      */
-    public void findByLikeName(String likeName) throws SQLException {
+    public void findByLikeName(String likeName) {
         try (Connection con = DBUtils.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(SQL_FIND_LIKE_NAME)) {
-                ps.setNString(1, likeName + '%');
-                try (ResultSet rs = ps.executeQuery()) {
+            try (CallableStatement cs
+                    = con.prepareCall("{call stpGetIngredientByLikeName(?)}")) {
+                cs.setNString(1, likeName);
+                try (ResultSet rs = cs.executeQuery()) {
                     while (rs.next()) {
                         Ingredient ingredient = new Ingredient();
                         ingredient.setId(BigInteger.valueOf(rs.getInt("Id")));
@@ -142,6 +118,47 @@ public class IngredientDAO implements Serializable {
             }
         } catch (NamingException ex) {
             Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Get ingredients by name contains likeName with pagination
+     *
+     * @param likeName
+     * @param pageSize
+     * @param pageNum
+     */
+    public void findByLikeName(String likeName, int pageSize, int pageNum) {
+        try (Connection con = DBUtils.getConnection()) {
+            try (CallableStatement cs
+                    = con.prepareCall("{call stpGetIngredientByLikeNameWithPagination(?,?,?)}")) {
+                cs.setNString(1, likeName);
+                cs.setInt(2, pageSize);
+                cs.setInt(3, pageNum);
+                try (ResultSet rs = cs.executeQuery()) {
+                    while (rs.next()) {
+                        Ingredient ingredient = new Ingredient();
+                        ingredient.setId(BigInteger.valueOf(rs.getInt("Id")));
+                        ingredient.setName(rs.getString("Name"));
+                        ingredient.setLink(rs.getString("Link"));
+                        ingredient.setImage(rs.getString("Image"));
+                        ingredient.setDescription(rs.getString("Description"));
+                        ingredient.setPrice(rs.getInt("Price"));
+                        if (listOfIngredients == null) {
+                            listOfIngredients = new ArrayList<>();
+                        }
+                        listOfIngredients.add(ingredient);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -4,91 +4,89 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Apr 7, 2020, 8:36:19 PM
+    Created on : Apr 12, 2020, 1:58:48 AM
     Author     : huynh
 */
-
-.main-banner {
-    padding: 12% 0 8% 0;
-    background-image: url(../images/main-banner.jpg);
-    background-size: cover !important;
-    background-position: center !important;
-    margin: 0;
-    position: relative;
+#header {
+    background-image: url(../images/slider.jpg);
+    width: 100%;
+    height: auto;
+    color: #fff;
 }
-.main-banner::before {
+
+#header.heading {
+    position: relative;
+    min-height: 200px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-position: 50% 50%;
+    background-size: cover !important;
+}
+
+#header.heading > * {
+    position: relative;
+    z-index: 2;
+}
+
+#header.heading::after {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    background: #000;
-    opacity: .5;
+    background-color: rgba(0, 0, 0, 0.3);
 }
-.main-banner .caption {
+
+#header.heading .page-title {
     position: relative;
-}
-.main-banner h2 {
-    color: #fff;
+    z-index: 2;
     display: block;
-    margin-bottom: 12px;
-    font-size: 50px;
-    font-weight: 600;
-}
-.main-banner p {
-    margin-bottom: 40px;
-    color: #fff;
-    font-family: ABeeZee, sans-serif;
-    font-weight: 400;
-}
-p {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ddd;
     font-size: 16px;
     line-height: 24px;
 }
-.main-banner .home-form-1 {
-    background: rgba(0, 0, 0, 0.55);
-    border-radius: 10px;
-    box-shadow: 0px 0px 0px 10px rgba(224, 224, 224, 0.23);
-    margin-top: 40px;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-}
-.main-banner .home-form-1 .field {
-    margin: 0;
-    padding: 0;
-}
-.main-banner .home-form-1 .input-group-addon {
-    background: #f7f7f7;
-    border: none;
-}
-.main-banner .input-group-addon i {
-    color: #ff0018 !important;
-    font-size: 18px;
-}
-.main-banner .home-form-1 .form-control {
-    height: 50px;
-    padding: 0;
-    font-size: larger;
-    margin-left: 10px;
-    padding-left: 30px;
+
+#header.heading .breadcrumb {
+    padding: 8px 15px;
+    position: relative;
+    z-index: 2;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    margin-bottom: 0;
+    color: #dedede;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.main-banner .home-form-1 .form-control, .main-banner .form-group {
-    margin-bottom: 0;
+#header.heading .page-title h2 {
+    margin-bottom: 15px;
+    font-size: 43px;
+    line-height: 36px;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
-.home-form-1 .btn {
-    border-radius: 0;
-    height: 50px;
-    font-size: 16px;
-    text-transform: uppercase;
+
+.breadcrumb > li {
+    color: #dedede;
+    display: inline-block;
 }
-.home-form-1 .btn i {
-    font-size: 21px;
-    position: relative;
-    top: 1px;
-    padding-right: 3px;
+
+#header.heading .breadcrumb a {
+    color: #cecece;
+}
+
+.breadcrumb > li + li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
 }
 .recipe-list-title {
     position: relative;
@@ -132,7 +130,7 @@ img {
 .recipe-box .recipe-heading {
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 10px 20px;
+    padding: 15px 20px;
     width: 100%;
 }
 .recipe-box .recipe-heading .recipe-header {
@@ -146,7 +144,7 @@ img {
 }
 .recipe-box .recipe-heading .recipe-title {
     margin: 5px 0;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 500;
     width: 100%;
     height: auto;

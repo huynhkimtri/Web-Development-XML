@@ -73,6 +73,10 @@ public class Ingredients {
         return this.ingredient;
     }
 
+    public void setIngredient(List<Ingredient> ingredient) {
+        this.ingredient = ingredient;
+    }
+
     /**
      * Gets the value of the nextPage property.
      *

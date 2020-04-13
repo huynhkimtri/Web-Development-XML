@@ -16,6 +16,23 @@ body {
     overflow-x: hidden;
 }
 
+#navbar {
+    width: 100%;
+    height: auto;
+    color: #fff;
+    position: relative;
+}
+.navbar {
+    min-height: 80px;
+    /*padding: 1.3rem 0;*/
+}
+.navbar-default {
+    background-color: #fff;
+}
+.navbar-brand {
+    color: #ff0018;
+}
+
 footer {
     background-color: #222;
     padding: 40px 0 0;
