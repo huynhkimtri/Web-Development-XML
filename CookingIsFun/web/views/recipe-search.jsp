@@ -13,6 +13,95 @@
         <title>Tìm kiếm công thức - CookingIsFun</title>
         <%@include file="common/link.jsp" %>
         <link href="resources/css/recipe-search.css" rel="stylesheet">
+        <script>
+            var ingredients = [];
+            var suggestions = [];
+            var tags = [];
+            var suggestionIndex = 0;
+            var recipes = [];
+            var page = 0;
+            let PAGE_SIZE = 6;
+            <c:forEach items="${requestScope.LIST_RECIPE}" var="r">
+            recipes.push({
+                id: ${r.id},
+                image: '${r.image}',
+                title: '${r.title}',
+                description: '${r.description}',
+                time: ${r.preparetime + r.cookingtime}
+            });
+            </c:forEach>
+            <c:set value="${sessionScope.RECIPE_WEBSITE.subdomains.subdomain}" var="jspIng"/>
+            <c:forEach items="${jspIng}" var="temp" varStatus="counter">
+                <c:if test="${counter.count != 1}">
+            ingredients.push({id: ${temp.id}, value: `${temp.value}`});
+                </c:if>
+            </c:forEach>
+
+            function removeSuggestion(id) {
+                document.getElementById("param-index-" + id).outerHTML = "";
+                tags = tags.filter(item => item.id != id);
+                renderSuggestions();
+            }
+
+            function suggest(event) {
+                if (event.keyCode === 13) {
+                    const suggestions = document.getElementsByClassName("sug");
+                    if (suggestions.length > suggestionIndex) {
+                        tags.push({
+                            id: suggestions[suggestionIndex].dataset.id,
+                            value: suggestions[suggestionIndex].innerHTML
+                        });
+                    }
+                    renderSuggestions();
+                    document.getElementById("tags-included").innerHTML = tags.map(item => `<div class="innerSuggest" id="param-index-\${item.id}" onclick='removeSuggestion(\${item.id})'>\${item.value}</div>`).join('');
+                    document.getElementById("tags").value = tags.map(item => item.id);
+                } else if (event.keyCode === 38) {
+                    // up
+                    if (suggestionIndex > 0) {
+                        suggestionIndex--;
+                        renderSuggestions();
+                    }
+                } else if (event.keyCode === 40) {
+                    //down
+                    if (suggestionIndex < suggestions.length - 1) {
+                        suggestionIndex++;
+                        renderSuggestions();
+                    }
+                } else if (event.keyCode === 27) {
+                    // esc
+                    document.getElementById("suggestion").style.visibility = 'hidden';
+                } else {
+                    const text = event.target.value;
+                    suggestions = ingredients.filter(item => {
+                        return item.value.toLowerCase().includes(text.toLowerCase());
+                    });
+                    suggestionIndex = 0;
+                    renderSuggestions();
+                }
+            }
+
+            function renderSuggestions() {
+                const suggestionComponents = suggestions
+                        .filter(item => !(tags.map(i => i.value)).includes(item.value))
+                        .map((item, index) =>
+                                `<div class="sug \${index === suggestionIndex ? 'choosing' : ''}" data-id="\${item.id}">\${item.value}</div>`
+                        );
+                const area = document.getElementById("suggestion");
+                area.innerHTML = suggestionComponents.join('');
+                area.style.visibility = 'visible';
+            }
+
+            function loadSuggestions() {
+                document.getElementById("input-search").addEventListener('keyup', suggest);
+                document.getElementById("input-search").addEventListener('blur', function () {
+                    document.getElementById("suggestion").style.visibility = 'hidden';
+                });
+                document.getElementById("searchForm").addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        </script>
     </head>
     <body>
         <%@include file="common/header.jsp" %>
@@ -35,6 +124,26 @@
             <div class="container">
                 <div class="row">
                     <div class="content col-md-12">
+                        <div>
+                            <h1>Tìm kiếm công thức nấu ăn dựa trên nguyên liệu</h1>
+                            <div class="search-center">
+                                <form id="searchForm" autocomplete="off">
+                                    <input id="input-search" 
+                                           class="txtSearch" 
+                                           type="text" 
+                                           placeholder="i.e: Mỳ/Bún/Miến" name="txtSearch" />
+                                </form>
+                                <div id="tags-included"></div>
+                                <div id="suggestion"></div>
+                                <form action="MainController" method="POST" >
+                                    <input id="tags" type="hidden" name="tags" value="" />
+                                    <input class="button" type="submit" value="AdvanceSearch" name="action" />
+                                </form>
+                            </div>
+                            <script type="text/javascript">loadSuggestions();</script>
+                            <div id="list-recipe"></div>
+                            <div class="load-button" id="load-button-recipes">Load more</div>
+                        </div>
                         <div class="row sort">
                             <div class="col-md-8 col-sm-8 col-xs-9">
                                 <form class="form-inline" method="get" action="?" id="sort-form">
@@ -96,27 +205,6 @@
                         </c:forEach>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div>
-            <div class="list-tag">
-                <ul class="wrap-list">
-                    <c:url value="FrontController" var="repAdvance">
-                        <c:param name="act" value="AdvanceSearch"/>
-                    </c:url>
-                    <c:url value="FrontController" var="ingAdvance">
-                        <c:param name="act" value="IngIndex"/>
-                    </c:url>
-                    <li class="item-list"><a href="${repAdvance}"><span>Recipe</span></a></li>
-                    <li class="item-list"><a href="${ingAdvance}"><span>Ingredient</span></a></li>
-                </ul>
-            </div>
-
-            <div class="search-right">
-                <form action="FrontController" method="GET" >
-                    <input type="text" name="q" placeholder="Lẩu, Bún, Cơm,..."/>
-                    <button type="submit" value="search" name="act">Tìm kiếm</button>
-                </form>
             </div>
         </div>
         <%@include file="common/footer.jsp" %>
