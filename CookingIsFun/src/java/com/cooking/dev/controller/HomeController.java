@@ -6,18 +6,25 @@
 package com.cooking.dev.controller;
 
 import com.cooking.dev.dao.RecipeDAO;
+import com.cooking.dev.jaxb.Domain;
+import com.cooking.dev.jaxb.Domains;
 import com.cooking.dev.jaxb.Recipe;
+import com.cooking.dev.util.JAXBUtils;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
 public class HomeController extends HttpServlet {
+
+    private static final String DOMAINS_FILE = "WEB-INF/config/domains.xml";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,6 +52,18 @@ public class HomeController extends HttpServlet {
         dao.findTopUsingProcedure(15);
         List<Recipe> listOfRecipes = dao.getListOfRecipes();
         request.setAttribute("TOP_RECIPES", listOfRecipes);
+
+        ServletContext context = request.getServletContext();
+        String contextPath = context.getRealPath("/");
+        FileInputStream fis = new FileInputStream(new File(contextPath + DOMAINS_FILE));
+
+        Domains domains = new Domains();
+        domains = JAXBUtils.unMarshal(fis, domains);
+        List<Domain> listOfDomains = domains.getDomain();
+        Domain recipeDomain = listOfDomains.get(0);
+        HttpSession session = request.getSession();
+        session.setAttribute("RECIPE_DOMAINS", recipeDomain);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

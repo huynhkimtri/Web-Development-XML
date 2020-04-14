@@ -27,7 +27,7 @@
                                     <div class="field col-md-9">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="text" name="q"
+                                                <input type="text" name="keyword"
                                                        class="form-control"
                                                        placeholder="Tìm kiếm công thức nấu ăn theo thành phần, món ăn hoặc từ khóa" 
                                                        value="">

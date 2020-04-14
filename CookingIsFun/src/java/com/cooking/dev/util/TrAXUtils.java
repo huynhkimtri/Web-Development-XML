@@ -57,12 +57,34 @@ public class TrAXUtils {
             throws TransformerConfigurationException, TransformerException, UnsupportedEncodingException {
         StringWriter writer = new StringWriter();
         StreamResult streamResult = new StreamResult(writer);
-        
+
         TransformerFactory transformFactory = TransformerFactory.newInstance();
         Transformer transformer = transformFactory.newTransformer(new StreamSource(new File(xslDoc)));
-        
+
         transformer.transform(new StreamSource(stream), streamResult);
-        
+
         return new ByteArrayInputStream(writer.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    /**
+     *
+     * @param xslUrl
+     * @param xmlString
+     * @param foPath
+     * @param realPath
+     * @throws TransformerConfigurationException
+     * @throws FileNotFoundException
+     * @throws TransformerException
+     */
+    public static void transform(String xslUrl, String xmlString, String foPath, String realPath)
+            throws TransformerConfigurationException, FileNotFoundException, TransformerException {
+        TransformerFactory tf = TransformerFactory.newInstance();
+        StreamSource xsltFile = new StreamSource(xslUrl);
+        Transformer transformer = tf.newTransformer(xsltFile);
+        transformer.setParameter("pathFile", realPath);
+        InputStream inStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
+        StreamSource xmlFile = new StreamSource(inStream);
+        StreamResult htmlFile = new StreamResult(new FileOutputStream(foPath));
+        transformer.transform(xmlFile, htmlFile);
     }
 }

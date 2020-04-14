@@ -37,7 +37,8 @@
             <div id="content" class="main style-1">
                 <div class="container">
                     <div class="content col-md-10 offset-md-1">
-                        <div class="recipe-info row">
+                        <a href="#" onclick="window.history.back();">=> Trở lại trang tìm kiếm</a>
+                        <div class="recipe-info row mt-4">
                             <div class="col-md-4">
                                 <img src="${recipe.image}" alt="Hình ảnh của ${recipe.name}" width="100%">
                             </div>
@@ -82,13 +83,10 @@
                                     <div class="print-cooking" onclick="exportRecipeToPDF()">
                                         <a href="${recipe_info}">In công thức</a>
                                     </div>
+                                    <div id="xhr-result"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="recipe-similar">
-
                     </div>
                 </div>
             </div>
@@ -109,7 +107,7 @@
                     }
                 };
             <c:url value="FrontController" var="recipe_info">
-                <c:param name="action" value="print"/>
+                <c:param name="act" value="print"/>
                 <c:param name="id" value="${recipe.id}"/>
             </c:url>
                 xhr.open('GET', '${recipe_info}');

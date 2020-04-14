@@ -57,6 +57,7 @@
         </div>
         <div id="content" class="main">
             <div class="container">
+                 <a href="#" onclick="window.history.back();">=> Trở lại trang công thức</a>
                 <c:if test="${not empty ingredients}" var="check">
                     <div class="row" id="list-ingredients"></div>
                     <button class="btn btn-primary" id="load-button-ingredients">Xem thêm</button>

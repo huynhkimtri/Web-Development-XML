@@ -6,11 +6,9 @@
 package com.cooking.dev.controller;
 
 import com.cooking.dev.dao.IngredientDAO;
-import com.cooking.dev.jaxb.Ingredient;
 import com.cooking.dev.jaxb.Ingredients;
 import com.cooking.dev.util.JAXBUtils;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

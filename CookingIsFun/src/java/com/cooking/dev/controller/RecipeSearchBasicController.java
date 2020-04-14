@@ -35,12 +35,13 @@ public class RecipeSearchBasicController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String keySearch = request.getParameter("q");
+        String key = request.getParameter("keyword");
         String url = "views/recipe-search.jsp";
         RecipeDAO dao = new RecipeDAO();
-        dao.findByNameUsingProcedure(keySearch);
+        dao.findByNameUsingProcedure(key);
         List<Recipe> listOfRecipes = dao.getListOfRecipes();
         request.setAttribute("LIST_RECIPES", listOfRecipes);
+        request.setAttribute("lastKeyword", key);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

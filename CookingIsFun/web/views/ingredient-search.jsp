@@ -14,7 +14,7 @@
         <link href="resources/css/ingredient.css" rel="stylesheet">
         <script>
             var xmlHttp;
-            var PAGE_SIZE = 6;
+            var PAGE_SIZE = 3;
             var num = 0;
             var parser = new DOMParser();
             function getXmlHttpObject() {
@@ -63,14 +63,14 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container my-4">
             <h1>Tìm kiếm nguyên liệu dựa trên từ khóa</h1>
-            <div class="search-center">
-                <input class="txtSearch form-control" type="text" id="txtSearch" value="${param.txtSearch}" /><br/>
-                <input class="btn btn-primary" type="button" onclick="search()" value="Search"/>
+            <div class="search-center row my-4">
+                <input class="txtSearch form-control col-md-4 mr-4" type="text" id="txtSearch" value="${param.txtSearch}" /><br/>
+                <input class="btn btn-primary" type="button" onclick="search()" value="Tìm kiếm"/>
             </div>
             <div class="row" id="list-ingredients"></div>
-            <div class="load-button" id="load-button-ingredients"></div>
+            <div class="load-button btn btn-primary" id="load-button-ingredients">Trang tiếp theo</div>
         </div>
         <%@include file="common/footer.jsp" %>
         <script>
@@ -80,7 +80,6 @@
                 if (xmlHttp.status === 200 && xmlHttp.readyState === 4) {
                     var tmp = xmlHttp.responseText;
                     var domTree = parser.parseFromString(tmp, "application/xml");
-                    console.log(domTree);
                     displayResult(domTree);
                 }
             }
@@ -117,23 +116,34 @@
                     div.appendChild(p)
                     td.appendChild(div);
 
-                    showedElement += `<tr class="product-item">
-        <td class="image-product">
-            <img src="\${image}" alt="Hình ảnh của \${name}" >
-            <div class="info">
-                <p>\${name}</p>
-            </div>
-        </td>
-        <td class="content-product">
-            <div class="content">
-               <h3>Giá: \${price} đồng</h3>
-                <p>\${description}</p>
-            </div>
-            <div>
-                <a class="button" href="\${link}">Tới chỗ mua</a>
-            </div>
-        </td>
-    </tr>`;
+                    showedElement += `<div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="recipe-box">
+                                <div class="recipe-img">
+                                    <a href="#">
+                                        <img width="643" height="428" src="\${image}" 
+                                             class="img-responsive wp-post-image" alt="\${name}">
+                                    </a>
+                                </div>
+                                <div class="recipe-heading">
+                                    <div class="recipe-header">
+                                        <h6 class="recipe-title">
+                                            <a href="#">
+            \${name}</a>
+                                        </h6>
+                                        <p>\${description}</p>
+                                    </div>
+                                    <div class="recipe-details">
+                                        <div class="prep-time">
+                                            <h3>Giá: \${price} đồng </h3>
+                                        </div>
+                                        <div style="width: 100%">
+                                            <a class="btn btn-success" href="\${link}" 
+                                               target="_blank">Đến chỗ mua</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
                 }
 
                 if (ingredients.length < PAGE_SIZE) {

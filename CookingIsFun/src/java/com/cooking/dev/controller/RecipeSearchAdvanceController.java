@@ -5,7 +5,11 @@
  */
 package com.cooking.dev.controller;
 
+import com.cooking.dev.dao.RecipeDAO;
+import com.cooking.dev.jaxb.Recipe;
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +35,22 @@ public class RecipeSearchAdvanceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String path = "views/recipe-search-ing.jsp";
+        String tagParams = request.getParameter("tags");
+        if (tagParams != null) {
+            String[] tags = tagParams.split(",");
+            int[] array = new int[tags.length];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = Integer.parseInt(tags[i]);
+            }
+            RecipeDAO dao = new RecipeDAO();
+            dao.findByCategories(array);
+            List<Recipe> recipes = dao.getListOfRecipes();
+            request.setAttribute("LIST_RECIPES", recipes);
 
+            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -71,6 +71,7 @@
     </head>
 
     <body>
+        <%@include file="common/header.jsp" %>
         <div class="container">
             <div class="container justify-content-center">
                 <div class="text-center mb-5 mt-5">
@@ -118,6 +119,7 @@
 
             </div>
         </div>
+        <%@include file="common/footer.jsp" %>
     </body>
 
 </html>

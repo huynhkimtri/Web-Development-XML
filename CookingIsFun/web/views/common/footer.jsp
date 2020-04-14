@@ -7,6 +7,6 @@
 
 <footer class="py-4 text-center">
     <div class="container">
-        <p class="m-0">Copyright © CookingIsFun 2020 <a href="FrontController?action=admin">Admin</a></p>
+        <p class="m-0">Copyright © CookingIsFun 2020 <a href="FrontController?act=admin">Admin</a></p>
     </div>
 </footer>

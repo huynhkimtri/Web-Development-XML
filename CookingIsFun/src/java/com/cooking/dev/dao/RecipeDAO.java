@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -258,6 +259,61 @@ public class RecipeDAO implements Serializable {
                     = con.prepareCall("{call stpGetRecipeByLikeName(?)}")) {
                 cs.setNString(1, likeName);
                 try (ResultSet rs = cs.executeQuery()) {
+                    while (rs.next()) {
+                        Recipe recipe = new Recipe();
+                        recipe.setId(BigInteger.valueOf(rs.getInt("Id")));
+                        recipe.setName(rs.getString("Name"));
+                        recipe.setLink(rs.getString("Link"));
+                        recipe.setImage(rs.getString("Image"));
+                        recipe.setDescription(rs.getString("Description"));
+                        recipe.setServings(rs.getString("Servings"));
+                        recipe.setPrepTime(BigInteger.valueOf(rs.getInt("PrepTime")));
+                        recipe.setCookTime(BigInteger.valueOf(rs.getInt("CookTime")));
+                        if (listOfRecipes == null) {
+                            listOfRecipes = new ArrayList<>();
+                        }
+                        listOfRecipes.add(recipe);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NamingException | SQLException ex) {
+            Logger.getLogger(RecipeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     *
+     * @param arr
+     */
+    public void findByCategories(int[] arr) {
+        int leng = arr.length;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < leng - 1; i++) {
+            sb.append("?,");
+        }
+        sb.append('?');
+        try (Connection con = DBUtils.getConnection()) {
+            try (PreparedStatement statement
+                    = con.prepareStatement("SELECT [Id]\n"
+                            + "      ,[Name]\n"
+                            + "      ,[Image]\n"
+                            + "      ,[Link]\n"
+                            + "      ,[Description]\n"
+                            + "      ,[Servings]\n"
+                            + "      ,[PrepTime]\n"
+                            + "      ,[CookTime]\n"
+                            + "	  ,(CookTime + PrepTime) AS Time\n"
+                            + "  FROM [dbo].[tblRecipe] Recipe,\n"
+                            + "  (SELECT [RecipeId] FROM [dbo].[tblCategoryRecipe] \n"
+                            + "  WHERE [CategoryId] IN (" + sb.toString() + ") GROUP BY [RecipeId]) CateRecipe\n"
+                            + "  WHERE CateRecipe.RecipeId = Recipe.Id	\n"
+                            + "  ORDER BY Time")) {
+                for (int i = 0; i < leng; i++) {
+                    statement.setInt(i + 1, arr[i]);
+                }
+                try (ResultSet rs = statement.executeQuery()) {
                     while (rs.next()) {
                         Recipe recipe = new Recipe();
                         recipe.setId(BigInteger.valueOf(rs.getInt("Id")));
